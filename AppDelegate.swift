@@ -2,7 +2,7 @@
 
 - Recipes -
 
-Created by cubycode ©2017
+Created by ElTech ©2017
 All Rights reserved
 
 -----------------------------------*/
