@@ -14,12 +14,12 @@ import Parse
 
 
 // IMPORTANT: Replace the red string below accordingly to the new name you'll give to this app
-let APP_NAME = "Recipes"
+let APP_NAME = "Enebla"
 
 
 // PARSE KEYS -> Replace these red keys with your own ones from your Parse app on back4app.com
-let PARSE_APP_KEY = "FH5tG5ceS6VNYphhG2bCygq4jG984qIv4wsCWlbV"
-let PARSE_CLIENT_KEY = "GcIndXBrHmseaKc2b5s1nlrWuuRFWccXJcCIgw2W"
+let PARSE_APP_KEY = "wWMulZnH1Xiy56R8JbwxJtn5akaLVxW4dg5UmTxz"
+let PARSE_CLIENT_KEY = "xTsSDZ5CO2HaD0MN1jZ2iRup10sYFHmz1CwBnIxO"
 
 
 
