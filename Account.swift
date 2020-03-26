@@ -20,47 +20,30 @@ class MyRecipesCell: UITableViewCell {
     /* Views */
     @IBOutlet weak var coverThumbnail: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var cellView: UIView!
-    
 }
 
-
-
-
-
-class Account: UIViewController,
-UITableViewDelegate,
-UITableViewDataSource,
-UICollectionViewDataSource,
-UICollectionViewDelegate,
-UICollectionViewDelegateFlowLayout,
-GADBannerViewDelegate
+class Account: UIViewController, UITableViewDelegate, UITableViewDataSource, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, GADBannerViewDelegate
 {
-
-    
     /* Views */
     @IBOutlet weak var noUserView: UIView!
     @IBOutlet weak var mainView: UIView!
     
-    @IBOutlet weak var editProfileOutlet: UIButton!
+    
     @IBOutlet weak var avatarImage: UIImageView!
-    @IBOutlet weak var bgkImage: UIImageView!
     @IBOutlet weak var fullNameLabel: UILabel!
-    @IBOutlet weak var aboutMeTxt: UITextView!
+    @IBOutlet weak var aboutMeTxt: UILabel!
     
     @IBOutlet weak var recipesSegControl: UISegmentedControl!
     
     @IBOutlet weak var myRecipesTableView: UITableView!
     @IBOutlet weak var likedRecipesCollView: UICollectionView!
     
-    @IBOutlet weak var activityOutlet: UIButton!
-    var cellSizeT1 = CGSize()
+    @IBOutlet weak var conBottomTableView: NSLayoutConstraint!
+    @IBOutlet weak var conBottomCollectionView: NSLayoutConstraint!
+    
     
     //Ad banners properties
     var adMobBannerView = GADBannerView()
-    
-    
-    
     
     /* Variables */
     var myRecipesArray = [PFObject]()
@@ -69,97 +52,52 @@ GADBannerViewDelegate
     var likesArray = [PFObject]()
     var cellSize = CGSize()
     
-    
-
-    
 
 override func viewDidAppear(_ animated: Bool) {
     
-   
-
     UIApplication.shared.applicationIconBadgeNumber = 0
     
     if PFUser.current() == nil {
         noUserView.isHidden = false
         mainView.isHidden = true
         
-    } else {
+    }
+    else {
         noUserView.isHidden = true
         mainView.isHidden = false
-        
         
         // Call query for My recipes
         queryMyRecipes()
         showUserDetails()
     }
-
 }
     
     
 override func viewDidLoad() {
         super.viewDidLoad()
     
-    // Round views coners
-    noUserView.layer.cornerRadius = 21
-    noUserView.layer.shadowOpacity = 1
-    noUserView.layer.shadowRadius = 5.0
-    noUserView.layer.shadowOffset = CGSize(width: 0.0, height: 4.0)
-    noUserView.layer.masksToBounds = false
-    noUserView.layer.shadowPath = UIBezierPath(roundedRect: noUserView.bounds, cornerRadius: noUserView.layer.cornerRadius).cgPath
-    noUserView.layer.shadowColor = UIColor(red: 128.0/255, green: 128.0/255, blue: 128.0/255, alpha: 1.0).cgColor
-    
-    editProfileOutlet.layer.cornerRadius = 5
-    activityOutlet.layer.cornerRadius = 5
-    
-    avatarImage.layer.cornerRadius = avatarImage.bounds.size.width/2
-    avatarImage.layer.borderColor = UIColor.white.cgColor
-    avatarImage.layer.borderWidth = 2
-    
-    //bgkImage.roundedImageTop()
-    
-    mainView.layer.cornerRadius = 21
-    mainView.layer.shadowOpacity = 1
-    mainView.layer.shadowRadius = 5.0
-    mainView.layer.shadowOffset = CGSize(width: 0.0, height: 4.0)
-    mainView.layer.masksToBounds = false
-    mainView.layer.shadowPath = UIBezierPath(roundedRect: mainView.bounds, cornerRadius: mainView.layer.cornerRadius).cgPath
-    mainView.layer.shadowColor = UIColor(red: 128.0/255, green: 128.0/255, blue: 128.0/255, alpha: 1.0).cgColor
-    
-    
-    // Fix size and origin of views
-    myRecipesTableView.frame = CGRect(x: 0, y: 220, width: view.frame.size.width, height: view.frame.size.height - 264 - 130)
-    myRecipesTableView.autoresizingMask = .flexibleBottomMargin
-    myRecipesTableView.autoresizingMask = .flexibleHeight
-    myRecipesTableView.autoresizingMask = .flexibleLeftMargin
-    myRecipesTableView.autoresizingMask = .flexibleRightMargin
-    myRecipesTableView.autoresizingMask = .flexibleTopMargin
-    myRecipesTableView.autoresizingMask = .flexibleWidth
-    
-    likedRecipesCollView.frame = CGRect(x: 0, y: 220, width: view.frame.size.width, height: view.frame.size.height - 264 - 130)
-    likedRecipesCollView.autoresizingMask = .flexibleBottomMargin
-    likedRecipesCollView.autoresizingMask = .flexibleHeight
-    likedRecipesCollView.autoresizingMask = .flexibleLeftMargin
-    likedRecipesCollView.autoresizingMask = .flexibleRightMargin
-    likedRecipesCollView.autoresizingMask = .flexibleTopMargin
-    likedRecipesCollView.autoresizingMask = .flexibleWidth
-    
+    self.navigationController?.navigationBar.addGradientNavigationBar(colors: [ThemeColor, GredientLightColor], angle: 135)
     
     // Set cell size based on current device
     if UIDevice.current.userInterfaceIdiom == .phone {
         // iPhone
-        cellSizeT1 = CGSize(width: 310, height: 90)
-        cellSize = CGSize(width: view.frame.size.width/2 - 15, height: 280)
+        cellSize = CGSize(width: view.frame.size.width - 16, height: 284)
     } else  {
         // iPad
-        cellSizeT1 = CGSize(width: 330, height: 90)
-        cellSize = CGSize(width: view.frame.size.width/3 - 20, height: 280)
+        cellSize = CGSize(width: view.frame.size.width/2 - 24, height: 284)
     }
-
     
     // Init ad banners
     initAdMobBanner()
 }
 
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.isNavigationBarHidden = true  //Hide
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        self.navigationController?.isNavigationBarHidden = false  //Show
+    }
 
 
 // MARK: - SHOW CURRENT USER DETAILS
@@ -180,7 +118,6 @@ func showUserDetails() {
     
     if aUser[USER_ABOUTME] != nil { aboutMeTxt.text = "\(aUser[USER_ABOUTME]!)"
     } else { aboutMeTxt.text = "N/D" }
-    
     
 }
     
@@ -248,10 +185,6 @@ func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> U
     cell.coverThumbnail.layer.cornerRadius = 5
     
 return cell
-}
-    
-func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-    return 90
 }
     
 // MARK: -  CELL HAS BEEN TAPPED -> EDIT RECIPE
@@ -344,19 +277,11 @@ func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection s
     return likedRecipesArray.count
 }
 func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "RecipesCell", for: indexPath) as! RecipesCell
+    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "RecipesCell 2", for: indexPath) as! RecipesCell
         
     var likesClass = PFObject(className: LIKES_CLASS_NAME)
     likesClass = likedRecipesArray[indexPath.row]
     
-    cell.layer.cornerRadius = 10
-    cell.layer.shadowOpacity = 1
-    cell.layer.shadowRadius = 5.0
-    cell.layer.shadowOffset = CGSize(width: 0.0, height: 4.0)
-    cell.layer.masksToBounds = false
-    cell.layer.shadowPath = UIBezierPath(roundedRect: cell.bounds, cornerRadius: cell.layer.cornerRadius).cgPath
-    cell.layer.shadowColor = UIColor(red: 128.0/255, green: 128.0/255, blue: 128.0/255, alpha: 1.0).cgColor
-    // Get Recipe Pointer
     let  recipePointer = likesClass[LIKES_RECIPE_LIKED] as! PFObject
     recipePointer.fetchIfNeededInBackground { (recipe, error) in
     
@@ -373,6 +298,10 @@ func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath:
                     cell.titleLabel.text = "\(recipePointer[RECIPES_TITLE]!)"
                     cell.categoryLabel.text = "\(recipePointer[RECIPES_CATEGORY]!)"
                 
+                        // Get Title & Category
+                    cell.titleLabel.text = "\(recipePointer[RECIPES_TITLE]!)" //"Yummy Pasta"//
+                    cell.categoryLabel.text = "\(recipePointer[RECIPES_CATEGORY]!) • Made by \(userPointer[USER_FULLNAME]!)"//"Category • by User Name"//
+                    
                     
                     // Get Likes
                     if recipePointer[RECIPES_LIKES] != nil {
@@ -380,6 +309,11 @@ func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath:
                         cell.likesLabel.text = likes.abbreviated
                     } else { cell.likesLabel.text = "0" }
 
+                    // Get Comments
+                    if recipePointer[RECIPES_COMMENTS] != nil {
+                        let comments = recipePointer[RECIPES_COMMENTS] as! Int
+                        cell.commentsLabel.text = comments.abbreviated
+                    } else { cell.commentsLabel.text = "0" }
                     
                     // Get Cover image
                     let imageFile = recipePointer[RECIPES_COVER] as? PFFile
@@ -387,42 +321,28 @@ func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath:
                         if error == nil {
                             if let imageData = data {
                                 cell.coverImage.image = UIImage(data: imageData)
-                    }}})
-                
+                            }
+                        }
+                    })
                 
                     // Get User's Avatar image
-                    cell.avatarOutlet.setBackgroundImage(UIImage(named: "logo"), for: .normal)
+                    cell.avatarOutlet.imageView?.contentMode = .scaleAspectFill
                     let avatarImage = userPointer[USER_AVATAR] as? PFFile
                     avatarImage?.getDataInBackground(block: { (data, error) -> Void in
                         if error == nil {
                             if let imageData = data {
-                                cell.avatarOutlet.setBackgroundImage(UIImage(data: imageData), for: .normal)
+                                cell.avatarOutlet.setImage(UIImage(data: imageData), for: .normal)
                     }}})
-                    cell.avatarOutlet.layer.cornerRadius = cell.avatarOutlet.bounds.size.width/2
-                
-                    // Get user's Full Name
-                    cell.fullNameLabel.text = "\(userPointer[USER_FULLNAME]!)"
-
-                    
-                    
+                                    
                     // Assign tags
                     cell.likeOutlet.tag = indexPath.row
                     cell.avatarOutlet.tag = indexPath.row
                 
-                    // Customize cell's layout
-                    cell.layer.cornerRadius = 10
-                    cell.layer.shadowColor = UIColor.black.cgColor
-                    cell.layer.shadowOffset = CGSize(width: 10, height: 10)
-                    cell.layer.shadowOpacity = 1
-
-            } else {
-                self.simpleAlert("\(error!.localizedDescription)")
-                    
-        }} // end userPointer
-        
+                } else {
+                    self.simpleAlert("\(error!.localizedDescription)")
+                        
+            }} // end userPointer
             
-            
-        
         // THIS RECIPE HAS BEEN REPORTED!
         } else {
             cell.titleLabel.text = "REPORTED!"
@@ -431,21 +351,34 @@ func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath:
             cell.likesLabel.text = "N/A"
             cell.coverImage.image = nil
             cell.coverImage.backgroundColor = UIColor.darkGray
-            cell.avatarOutlet.setBackgroundImage(nil, for: .normal)
+            cell.avatarOutlet.setImage(nil, for: .normal)
             cell.avatarOutlet.isEnabled = false
             cell.likeOutlet.isEnabled = false
         }
-        
-        
     }// end recipePointer
     
-        
+    var frame = cell.coverImage.frame
+    let y: CGFloat = ((likedRecipesCollView.contentOffset.y - cell.frame.origin.y) / frame.size.height) * 20.0
+    frame.origin.y = y
+    cell.coverImage.frame = frame
     
 return cell
 }
     
 func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
     return cellSize
+}
+    
+func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
+    let visibleCells = likedRecipesCollView.visibleCells as! [RecipesCell]
+    for cell in visibleCells
+    {
+        var frame = cell.coverImage.frame
+        let yOffset: CGFloat = ((likedRecipesCollView.contentOffset.y - cell.frame.origin.y) / frame.size.height) * 20.0
+        frame.origin.y = yOffset
+        cell.coverImage.frame = frame
+    }
 }
     
 // MARK: - TAP A CELL -> SHOW RECIPE
@@ -600,7 +533,7 @@ func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPat
 // MARK: - IAD + ADMOB BANNER METHODS
     func initAdMobBanner() {
         adMobBannerView.adSize =  GADAdSizeFromCGSize(CGSize(width: 320, height: 50))
-        adMobBannerView.frame = CGRect(x: 0, y: self.view.frame.size.height, width: 320, height: 50)
+        adMobBannerView.frame = CGRect(x: 0, y: self.view.frame.size.height, width: self.view.bounds.size.width, height: 50)
         adMobBannerView.adUnitID = ADMOB_BANNER_UNIT_ID
         adMobBannerView.rootViewController = self
         adMobBannerView.delegate = self
@@ -615,27 +548,25 @@ func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPat
         UIView.beginAnimations("hideBanner", context: nil)
         
         banner.frame = CGRect(x: 0, y: self.view.frame.size.height, width: banner.frame.size.width, height: banner.frame.size.height)
+        conBottomTableView.constant = 0
+        conBottomCollectionView.constant = 0
+        self.view.layoutIfNeeded()
         UIView.commitAnimations()
         banner.isHidden = true
-        
     }
     
     // Show the banner
     func showBanner(_ banner: UIView) {
-        var h: CGFloat = 0
-        // iPhone X
-        if UIScreen.main.bounds.size.height == 812 { h = 84
-        } else { h = 48 }
-        
         UIView.beginAnimations("showBanner", context: nil)
         banner.frame = CGRect(x: view.frame.size.width/2 - banner.frame.size.width/2,
-                              y: view.frame.size.height - banner.frame.size.height - h,
+                              y: view.frame.size.height - banner.frame.size.height,
                               width: banner.frame.size.width, height: banner.frame.size.height);
+        conBottomTableView.constant = 50
+        conBottomCollectionView.constant = 50
+        self.view.layoutIfNeeded()
         UIView.commitAnimations()
         banner.isHidden = false
     }
-    
-
     
     // AdMob banner available
     func adViewDidReceiveAd(_ view: GADBannerView) {

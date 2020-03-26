@@ -18,74 +18,21 @@ UITextFieldDelegate
 {
 
     /* Views */
-    @IBOutlet weak var containerScrollView: UIScrollView!
     @IBOutlet weak var fullnameTxt: UITextField!
     @IBOutlet weak var occupationTxt: UITextField!
     @IBOutlet weak var aboutMeTxt: UITextView!
     @IBOutlet weak var avatarimage: UIImageView!
-    @IBOutlet weak var emailLabel: UILabel!
-    @IBOutlet weak var mainView: UIView!
-    @IBOutlet weak var updateProfileOutlet: UIButton!
-    @IBOutlet weak var view1: UIView!
-    @IBOutlet weak var view2: UIView!
-    @IBOutlet weak var view3: UIView!
+    @IBOutlet weak var emailTxt: UITextField!
     
-
     /* Variables */
     var userObj = PFUser()
-    
-    
     
     
 override func viewDidLoad() {
         super.viewDidLoad()
 
-    
-    self.title = "EDIT PROFILE"
-    
-    view1.layer.cornerRadius = 10
-    view1.layer.borderWidth = 1
-    view1.layer.borderColor = UIColor(red: 128.0/255, green: 128.0/255, blue: 128.0/255, alpha: 1.0).cgColor
-    
-    view2.layer.cornerRadius = 10
-    view2.layer.borderWidth = 1
-    view2.layer.borderColor = UIColor(red: 128.0/255, green: 128.0/255, blue: 128.0/255, alpha: 1.0).cgColor
-    
-    view3.layer.cornerRadius = 10
-    view3.layer.borderWidth = 1
-    view3.layer.borderColor = UIColor(red: 128.0/255, green: 128.0/255, blue: 128.0/255, alpha: 1.0).cgColor
-    
-    // Initialize a BACK BarButton Item
-    let butt = UIButton(type: UIButtonType.custom)
-    butt.adjustsImageWhenHighlighted = false
-    butt.frame = CGRect(x: 0, y: 0, width: 44, height: 44)
-    butt.setBackgroundImage(UIImage(named: "backButt"), for: .normal)
-    butt.addTarget(self, action: #selector(backButt(_:)), for: .touchUpInside)
-    navigationItem.leftBarButtonItem = UIBarButtonItem(customView: butt)
-
-    updateProfileOutlet.layer.cornerRadius = 21
-    updateProfileOutlet.layer.shadowOpacity = 1
-    updateProfileOutlet.layer.shadowRadius = 5.0
-    updateProfileOutlet.layer.shadowOffset = CGSize(width: 0.0, height: 4.0)
-    updateProfileOutlet.layer.masksToBounds = false
-    updateProfileOutlet.layer.shadowPath = UIBezierPath(roundedRect:  updateProfileOutlet.bounds, cornerRadius: updateProfileOutlet.layer.cornerRadius).cgPath
-    updateProfileOutlet.layer.shadowColor = UIColor(red: 128.0/255, green: 128.0/255, blue: 128.0/255, alpha: 1.0).cgColor
-    
-    
-    mainView.layer.cornerRadius = 21
-    mainView.layer.shadowOpacity = 1
-    mainView.layer.shadowRadius = 5.0
-    mainView.layer.shadowOffset = CGSize(width: 0.0, height: 4.0)
-    mainView.layer.masksToBounds = false
-    mainView.layer.shadowPath = UIBezierPath(roundedRect:  mainView.bounds, cornerRadius: mainView.layer.cornerRadius).cgPath
-    updateProfileOutlet.layer.shadowColor = UIColor(red: 128.0/255, green: 128.0/255, blue: 128.0/255, alpha: 1.0).cgColor
-    
-    containerScrollView.contentSize = CGSize(width: containerScrollView.frame.size.width, height: 800)
-    
-    // Round views corners
-    updateProfileOutlet.layer.cornerRadius = 5
-    avatarimage.layer.cornerRadius = avatarimage.bounds.size.width/2
-    
+    self.navigationController?.navigationBar.addGradientNavigationBar(colors: [ThemeColor, GredientLightColor], angle: 135)
+        
     createKeyboardToolbar()
     showUserDetails()
 }
@@ -104,7 +51,7 @@ func createKeyboardToolbar() {
     // Dismiss keyboard button
     let dismissButt = UIButton(type: .custom)
     dismissButt.frame = CGRect(x: keyboardToolbar.frame.size.width-44, y: 0, width: 44, height: 44)
-    dismissButt.setBackgroundImage(UIImage(named: "dismissButt"), for: .normal)
+    dismissButt.setImage(UIImage(named: "dismissButt"), for: .normal)
     dismissButt.addTarget(self, action: #selector(dismissKeyboard(_:)), for: .touchUpInside)
     keyboardToolbar.addSubview(dismissButt)
         
@@ -125,7 +72,7 @@ func showUserDetails() {
     } else { occupationTxt.text = nil }
     if userObj[USER_ABOUTME] != nil { aboutMeTxt.text = "\(userObj[USER_ABOUTME]!)"
     } else { aboutMeTxt.text = nil }
-    emailLabel.text = "\(userObj[USER_EMAIL]!)"
+    emailTxt.text = "\(userObj[USER_EMAIL]!)"
     
     // Get avatar image
     avatarimage.image = UIImage(named: "logo")
@@ -217,16 +164,10 @@ func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMe
     }}
 }
     
-    
-    
-    
-// MARK: - BACK BUTTON
-@objc func backButt(_ sender:UIButton) {
+@IBAction func btnBack(_ sender: Any) {
     _ = navigationController?.popViewController(animated: true)
 }
-  
-  
-    
+
 override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

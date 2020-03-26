@@ -35,6 +35,10 @@ GADBannerViewDelegate
     @IBOutlet weak var bannerView: UIView!
     @IBOutlet weak var bannerHeightConstraint: NSLayoutConstraint!
     
+    @IBOutlet weak var conBottomCollectionView: NSLayoutConstraint!
+    @IBOutlet weak var conTopSearchBar: NSLayoutConstraint!
+    
+    
     //Ad banners properties
     var adMobBannerView = GADBannerView()
     
@@ -73,10 +77,7 @@ override func viewDidAppear(_ animated: Bool) {
 override func viewDidLoad() {
         super.viewDidLoad()
 
-    // Reset search text
-    searchBar.frame.origin.y = -60
-    searchBar.text = ""
-    
+    self.navigationController?.navigationBar.addGradientNavigationBar(colors: [ThemeColor, GredientLightColor], angle: 135)
     
     // Load Shopping Array
     let tempArr: AnyObject? = defaults.object(forKey: "tempArr") as AnyObject?
@@ -89,10 +90,10 @@ override func viewDidLoad() {
     // Set cell size based on current device
     if UIDevice.current.userInterfaceIdiom == .phone {
         // iPhone
-        cellSize = CGSize(width: view.frame.size.width/2 - 15, height: 280)
+        cellSize = CGSize(width: view.frame.size.width - 16, height: 284)
     } else  {
         // iPad
-        cellSize = CGSize(width: view.frame.size.width/3 - 20, height: 280)
+        cellSize = CGSize(width: view.frame.size.width/2 - 24, height: 284)
     }
     
     // Init ad banners
@@ -154,7 +155,7 @@ func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection s
 }
     
 func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "RecipesCell", for: indexPath) as! RecipesCell
+    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "RecipesCell 2", for: indexPath) as! RecipesCell
     
     var recipesClass = PFObject(className: RECIPES_CLASS_NAME)
     recipesClass = recipesArray[indexPath.row]
@@ -165,7 +166,7 @@ func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath:
         
         // Get Title & Category
         cell.titleLabel.text = "\(recipesClass[RECIPES_TITLE]!)"
-        cell.categoryLabel.text = "\(recipesClass[RECIPES_CATEGORY]!)"
+        cell.categoryLabel.text = "\(recipesClass[RECIPES_CATEGORY]!) • Made by \(userPointer[USER_FULLNAME]!)"//"Category • by User Name"//
         
         // Get Likes
         if recipesClass[RECIPES_LIKES] != nil {
@@ -190,41 +191,44 @@ func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath:
     
     
         // Get User's Avatar image
-        cell.avatarOutlet.setBackgroundImage(UIImage(named: "logo"), for: .normal)
+        cell.avatarOutlet.imageView?.contentMode = .scaleAspectFill
         let avatarImage = userPointer[USER_AVATAR] as? PFFile
         avatarImage?.getDataInBackground(block: { (data, error) -> Void in
             if error == nil {
                 if let imageData = data {
-                    cell.avatarOutlet.setBackgroundImage(UIImage(data: imageData), for: .normal)
+                    cell.avatarOutlet.setImage(UIImage(data: imageData), for: .normal)
         }}})
-        cell.avatarOutlet.layer.cornerRadius = cell.avatarOutlet.bounds.size.width/2
-  
-        
-        cell.fullNameLabel.text = "\(userPointer[USER_FULLNAME]!)"
+
+//        cell.fullNameLabel.text = "\(userPointer[USER_FULLNAME]!)"
     
-  
-        
         // Assign a tag to buttons
         cell.likeOutlet.tag = indexPath.row
         cell.avatarOutlet.tag = indexPath.row
-    
-    
-        // Customize cell's layout
-        cell.layer.cornerRadius = 10
-        cell.layer.shadowOpacity = 1
-        cell.layer.shadowRadius = 5.0
-        cell.layer.shadowOffset = CGSize(width: 0.0, height: 4.0)
-        cell.layer.masksToBounds = false
-        cell.layer.shadowPath = UIBezierPath(roundedRect: cell.bounds, cornerRadius: cell.layer.cornerRadius).cgPath
-        cell.layer.shadowColor = UIColor(red: 128.0/255, green: 128.0/255, blue: 128.0/255, alpha: 1.0).cgColor
+        
     }
     
+    var frame = cell.coverImage.frame
+    let y: CGFloat = ((recipesCollView.contentOffset.y - cell.frame.origin.y) / frame.size.height) * 20.0
+    frame.origin.y = y
+    cell.coverImage.frame = frame
     
-return cell
+    return cell
 }
     
 func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
     return cellSize
+}
+    
+func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
+    let visibleCells = recipesCollView.visibleCells as! [RecipesCell]
+    for cell in visibleCells
+    {
+        var frame = cell.coverImage.frame
+        let yOffset: CGFloat = ((recipesCollView.contentOffset.y - cell.frame.origin.y) / frame.size.height) * 20.0
+        frame.origin.y = yOffset
+        cell.coverImage.frame = frame
+    }
 }
     
 // MARK: - TAP A CELL -> SHOW RECIPE
@@ -392,34 +396,34 @@ func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPat
     
 // MARK: - SHOW/HIDE SEARCH BAR
 func showSearchBar() {
-    UIView.animate(withDuration: 0.2, delay: 0.0, options: UIViewAnimationOptions.curveLinear, animations: {
-        if UIScreen.main.bounds.size.height == 812 {
-            // iPhone X
-            self.searchBar.frame.origin.y = 84
-        } else { self.searchBar.frame.origin.y = 64 }
-        
-    }, completion: { (finished: Bool) in
-        self.searchBar.becomeFirstResponder()
+    UIView.animate(withDuration: 0.2, animations: {
+        self.conTopSearchBar.constant = 0
+        self.view.layoutIfNeeded()
     })
+    { (finished) in
+        self.searchBar.becomeFirstResponder()
+    }
 }
     
 func hideSearchBar() {
-    UIView.animate(withDuration: 0.2, delay: 0.0, options: UIViewAnimationOptions.curveLinear, animations: {
-        self.searchBar.frame.origin.y = -60
-    }, completion: { (finished: Bool) in
-        self.searchBar.resignFirstResponder()
+    UIView.animate(withDuration: 0.2, animations: {
+        self.conTopSearchBar.constant = -56
+        self.view.layoutIfNeeded()
     })
+    { (finished) in
+        self.searchBar.resignFirstResponder()
+    }
 }
     
  
 // MARK: - SEARCH BAR DELEGATES
 func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-    categoryStr = ""
     queryRecipes(searchBar.text!)
     hideSearchBar()
 }
 func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
     searchBar.text = ""
+    queryRecipes(searchBar.text!)
     hideSearchBar()
 }
     
@@ -448,8 +452,7 @@ func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
 // MARK: - IAD + ADMOB BANNER METHODS
 func initAdMobBanner() {
         adMobBannerView.adSize =  GADAdSizeFromCGSize(CGSize(width: 320, height: 50))
-        adMobBannerView.frame = bannerView.frame
-            //CGRect(x: 0, y: self.view.frame.size.height, width: 320, height: 50)
+        adMobBannerView.frame = CGRect(x: 0, y: view.frame.size.height, width: self.view.bounds.size.width, height: 50)
         adMobBannerView.adUnitID = ADMOB_BANNER_UNIT_ID
         adMobBannerView.rootViewController = self
         adMobBannerView.delegate = self
@@ -464,7 +467,8 @@ func initAdMobBanner() {
         UIView.beginAnimations("hideBanner", context: nil)
         banner.frame = bannerView.frame
 //            CGRect(x: 0, y: self.view.frame.size.height, width: banner.frame.size.width, height: banner.frame.size.height)
-        bannerHeightConstraint.constant = 0
+        conBottomCollectionView.constant = 0
+        self.view.layoutIfNeeded()
         UIView.commitAnimations()
         banner.isHidden = true
         
@@ -473,15 +477,12 @@ func initAdMobBanner() {
     
     // Show the banner
     func showBanner(_ banner: UIView) {
-        var h: CGFloat = 0
-        // iPhone X
-        if UIScreen.main.bounds.size.height == 812 { h = 84
-        } else { h = 48 }
-        
         UIView.beginAnimations("showBanner", context: nil)
         banner.frame = CGRect(x: view.frame.size.width/2 - banner.frame.size.width/2,
-                              y: view.frame.size.height - banner.frame.size.height - h,
+                              y: view.frame.size.height - banner.frame.size.height,
                               width: banner.frame.size.width, height: banner.frame.size.height);
+        conBottomCollectionView.constant = 50
+        self.view.layoutIfNeeded()
         UIView.commitAnimations()
         banner.isHidden = false
     }

@@ -39,41 +39,19 @@ UICollectionViewDelegateFlowLayout
     
     
 override func viewDidLoad() {
-        super.viewDidLoad()
+    super.viewDidLoad()
 
+    self.navigationController?.navigationBar.addGradientNavigationBar(colors: [ThemeColor, GredientLightColor], angle: 135)
+    
     self.edgesForExtendedLayout = UIRectEdge()
     
-    
-    // Initialize a BACK BarButton Item
-    let butt = UIButton(type: UIButtonType.custom)
-    butt.adjustsImageWhenHighlighted = false
-    butt.frame = CGRect(x: 0, y: 0, width: 44, height: 44)
-    butt.setBackgroundImage(UIImage(named: "backButt"), for: .normal)
-    butt.addTarget(self, action: #selector(backButt(_:)), for: .touchUpInside)
-    navigationItem.leftBarButtonItem = UIBarButtonItem(customView: butt)
-
-    // Initialize a REPORT USER  BarButton Item
-    let reportButt = UIButton(type: UIButtonType.custom)
-    reportButt.adjustsImageWhenHighlighted = false
-    reportButt.frame = CGRect(x: 0, y: 0, width: 44, height: 44)
-    reportButt.setBackgroundImage(UIImage(named: "reportButt"), for: .normal)
-    reportButt.addTarget(self, action: #selector(reportButton(_:)), for: .touchUpInside)
-    navigationItem.rightBarButtonItem = UIBarButtonItem(customView: reportButt)
-
-    
-    
-    // Round views corners
-    avatarImage.layer.cornerRadius = avatarImage.bounds.size.width/2
-    avatarImage.layer.borderColor = UIColor.white.cgColor
-    avatarImage.layer.borderWidth = 2
-
     // Set cell size based on current device
     if UIDevice.current.userInterfaceIdiom == .phone {
         // iPhone
-        cellSize = CGSize(width: view.frame.size.width/2 - 20, height: 280)
+        cellSize = CGSize(width: view.frame.size.width - 16, height: 284)
     } else  {
         // iPad
-        cellSize = CGSize(width: view.frame.size.width/3 - 20, height: 280)
+        cellSize = CGSize(width: view.frame.size.width/2 - 24, height: 284)
     }
 
     
@@ -85,7 +63,7 @@ override func viewDidLoad() {
     
 // MARK: - SHOW OTHER USER DETAILS
 func showUserDetails() {
-    self.title = "\(otherUserObj[USER_FULLNAME]!)"
+//    self.title = "\(otherUserObj[USER_FULLNAME]!)"
     
     // Get avatar image
     avatarImage.image = UIImage(named: "logo")
@@ -96,13 +74,20 @@ func showUserDetails() {
                 self.avatarImage.image = UIImage(data:imageData)
     }}})
         
-    if otherUserObj[USER_JOB] != nil { fullnameLabel.text = "\(otherUserObj[USER_FULLNAME]!), \(otherUserObj[USER_JOB]!)"
-    } else { fullnameLabel.text = "\(otherUserObj[USER_FULLNAME]!)" }
+    if otherUserObj[USER_JOB] != nil {
+        fullnameLabel.text = "\(otherUserObj[USER_FULLNAME]!) (\(otherUserObj[USER_JOB]!))"//"Pramod Tapaniya (Cook)"//
+    }
+    else {
+        fullnameLabel.text = "\(otherUserObj[USER_FULLNAME]!)"
+    }
     
-    if otherUserObj[USER_ABOUTME] != nil { aboutUserLabel.text = "\(otherUserObj[USER_ABOUTME]!)"
-    } else { aboutUserLabel.text = "N/D" }
+    if otherUserObj[USER_ABOUTME] != nil {
+        aboutUserLabel.text =  "\(otherUserObj[USER_ABOUTME]!)"//"I would like to cook for family!"//
+    } else {
+        aboutUserLabel.text = "N/D"
+    }
     
-    userRecipesLabel.text = "\(otherUserObj[USER_FULLNAME]!) recipes"
+    userRecipesLabel.text = "Recipes"
     
     // call query
     queryUserRecipes()
@@ -132,22 +117,14 @@ func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection s
     return otherUserRecipesArray.count
 }
 func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "RecipesCell", for: indexPath) as! RecipesCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "RecipesCell 2", for: indexPath) as! RecipesCell
         
         var recipeObj = PFObject(className: RECIPES_CLASS_NAME)
         recipeObj = otherUserRecipesArray[indexPath.row]
     
-    cell.layer.cornerRadius = 10
-    cell.layer.shadowOpacity = 1
-    cell.layer.shadowRadius = 5.0
-    cell.layer.shadowOffset = CGSize(width: 0.0, height: 4.0)
-    cell.layer.masksToBounds = false
-    cell.layer.shadowPath = UIBezierPath(roundedRect: cell.bounds, cornerRadius: cell.layer.cornerRadius).cgPath
-    cell.layer.shadowColor = UIColor(red: 128.0/255, green: 128.0/255, blue: 128.0/255, alpha: 1.0).cgColor
-    
         // Get Title & Category
-        cell.titleLabel.text = "\(recipeObj[RECIPES_TITLE]!)"
-        cell.categoryLabel.text = "\(recipeObj[RECIPES_CATEGORY]!)"
+        cell.titleLabel.text = "\(recipeObj[RECIPES_TITLE]!)" //"Yummy Pasta"//
+        cell.categoryLabel.text = "\(recipeObj[RECIPES_CATEGORY]!) • Made by \(otherUserObj[USER_FULLNAME]!)"//"Category • by User Name"//
     
     
         // Get Likes
@@ -174,30 +151,40 @@ func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath:
         
         
         // Get User's Avatar image
-        cell.avatarOutlet.setBackgroundImage(UIImage(named: "logo"), for: .normal)
+        cell.avatarOutlet.imageView?.contentMode = .scaleAspectFill
         let avatarImage = otherUserObj[USER_AVATAR] as? PFFile
         avatarImage?.getDataInBackground(block: { (data, error) -> Void in
             if error == nil {
                 if let imageData = data {
-                    cell.avatarOutlet.setBackgroundImage(UIImage(data: imageData), for: .normal)
+                    cell.avatarOutlet.setImage(UIImage(data: imageData), for: .normal)
         }}})
-        cell.avatarOutlet.layer.cornerRadius = cell.avatarOutlet.bounds.size.width/2
+        
     
-    
-        cell.fullNameLabel.text = "\(otherUserObj[USER_FULLNAME]!)"
+//        cell.fullNameLabel.text = "\(otherUserObj[USER_FULLNAME]!)"// "Pramod Tapaniya"//
     
         cell.likeOutlet.tag = indexPath.row
-        
-        // Customize cell's layout
-        cell.layer.cornerRadius = 10
-        cell.layer.shadowColor = UIColor.black.cgColor
-        cell.layer.shadowOffset = CGSize(width: 10, height: 10)
-        cell.layer.shadowOpacity = 1
-        
-return cell
+
+    var frame = cell.coverImage.frame
+    let y: CGFloat = ((userRecipesCollView.contentOffset.y - cell.frame.origin.y) / frame.size.height) * 20.0
+    frame.origin.y = y
+    cell.coverImage.frame = frame
+    
+    return cell
 }
 func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
     return cellSize
+}
+   
+func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
+    let visibleCells = userRecipesCollView.visibleCells as! [RecipesCell]
+    for cell in visibleCells
+    {
+        var frame = cell.coverImage.frame
+        let yOffset: CGFloat = ((userRecipesCollView.contentOffset.y - cell.frame.origin.y) / frame.size.height) * 20.0
+        frame.origin.y = yOffset
+        cell.coverImage.frame = frame
+    }
 }
     
 // MARK: - TAP A CELL -> SHOW RECIPE
@@ -335,8 +322,8 @@ func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPat
 
     
 // MARK: - REPORT USER BUTTON
-@objc func reportButton(_ sender:UIButton) {
-
+    
+    @IBAction func btnReport(_ sender: Any) {
     let alert = UIAlertController(title: APP_NAME,
         message: "Tell us briefly why you're reporting this User",
         preferredStyle: .alert)
@@ -408,8 +395,8 @@ func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPat
     
     
 // MARK: - BACK BUTTON
-@objc func backButt(_ sender:UIButton) {
-    _ = navigationController?.popViewController(animated: true)
+    @IBAction func btnBack(_ sender: Any) {
+        navigationController?.popViewController(animated: true)
 }
 
     
@@ -424,3 +411,5 @@ override func didReceiveMemoryWarning() {
 
 
 }
+
+

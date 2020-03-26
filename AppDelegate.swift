@@ -43,7 +43,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Init Facebook Utils
         PFFacebookUtils.initializeFacebook(applicationLaunchOptions: launchOptions)
         
-
+        //================================= Navigation bar =================================//
+        UINavigationBar.appearance().tintColor = UIColor.white
+        
+        let titleFont = UIFont(name: "American Typewriter", size: 19.0)!
+        
+        UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.font : titleFont,
+                                                            NSAttributedString.Key.foregroundColor : UIColor.white]
+        UIBarButtonItem.appearance().setTitleTextAttributes([NSAttributedString.Key.foregroundColor : UIColor.white], for: .normal)
+        UIBarButtonItem.appearance().setTitleTextAttributes([NSAttributedString.Key.foregroundColor : UIColor.white], for: .highlighted)
+        
+        
 return true
 }
 
@@ -125,3 +135,11 @@ func application(_ application: UIApplication, didReceiveRemoteNotification user
 
 }
 
+
+
+//Change Design
+//3 ** 
+//4 **
+//7
+//8
+//12

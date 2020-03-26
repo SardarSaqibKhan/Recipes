@@ -24,7 +24,7 @@ let PARSE_CLIENT_KEY = "xTsSDZ5CO2HaD0MN1jZ2iRup10sYFHmz1CwBnIxO"
 
 
 // IMPORTANT: REPLACE THE RED STRING BELOW WITH THE UNIT ID YOU'VE GOT BY REGISTERING YOUR APP IN http://www.apps.admob.com
-let ADMOB_BANNER_UNIT_ID = "ca-app-pub-3940256099942544/6300978111"
+let ADMOB_BANNER_UNIT_ID = "ca-app-pub-3453913475502605/1028766550"
 
 
 
@@ -47,31 +47,37 @@ let categoriesArray =  [
 ]
 
 
+// MARK: - List of Constants
+let userDefault             = UserDefaults.standard
+let appDelegate             = (UIApplication.shared.delegate as! AppDelegate)
+
+let RateLink                = ""
+
 // Custom yellow color
 let yellow = UIColor(red: 247/255.0, green: 252/255.0, blue: 142/255.0, alpha: 1.0)
-
-
+let ThemeColor = UIColor.init(red: 16/255.0, green: 112/255.0, blue: 4/255.0, alpha: 1.0)
+let GredientLightColor = UIColor.init(red: 76/255.0, green: 187/255.0, blue: 23/255.0, alpha: 1.0)
 
 
 // HUD VIEW
 var hudView = UIView()
-var animImage = UIImageView(frame: CGRect(x: 0, y: 0, width: 80, height: 80))
+var animImage = UIImageView(frame: CGRect(x: 15, y: 15, width: 50, height: 50))
 extension UIViewController {
     func showHUD() {
         hudView.frame = CGRect(x: 0, y: 0, width: 80, height: 80)
         hudView.center = view.center
-        hudView.backgroundColor = UIColor.yellow
-        hudView.alpha = 0.9
+        hudView.backgroundColor = ThemeColor
+        hudView.addGradient(colors: [ThemeColor, GredientLightColor], angle: 135)
         hudView.clipsToBounds = true
         hudView.layer.cornerRadius = hudView.bounds.size.width/2
         
-        let imagesArr = ["h0", "h1", "h2", "h3", "h4", "h5", "h6", "h7", "h8", "h9", "h10"]
+        let imagesArr = ["hud1", "hud2", "hud3", "hud4", "hud5", "hud6", "hud7", "hud8", "hud9", "hud10", "hud11", "hud12"]
         var images:[UIImage] = []
         for i in 0..<imagesArr.count {
             images.append(UIImage(named: imagesArr[i])!)
         }
         animImage.animationImages = images
-        animImage.animationDuration = 0.7
+        animImage.animationDuration = 1.25
         hudView.addSubview(animImage)
         animImage.startAnimating()
         view.addSubview(hudView)

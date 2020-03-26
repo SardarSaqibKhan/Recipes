@@ -12,21 +12,17 @@ import Parse
 import GoogleMobileAds
 import AudioToolbox
 
-
-
 class RecipeDetails: UIViewController,
 GADBannerViewDelegate
 {
 
     /* Views */
     @IBOutlet weak var coverImage: UIImageView!
-    @IBOutlet weak var containerScrollView: UIScrollView!
-    @IBOutlet weak var mainView: UIView!
-    @IBOutlet weak var recipeView: UIView!
-    
+        
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var categoryLabel: UILabel!
     @IBOutlet weak var likesLabel: UILabel!
+    @IBOutlet weak var commentsLabel: UILabel!
     
     @IBOutlet weak var avatarImage: UIImageView!
     @IBOutlet weak var userFullNameLabel: UILabel!
@@ -37,22 +33,17 @@ GADBannerViewDelegate
     @IBOutlet weak var bakingLabel: UILabel!
     @IBOutlet weak var restingLabel: UILabel!
     
-    @IBOutlet var timingLabels: [UILabel]!
-    
     @IBOutlet weak var videoWebView: UIWebView!
     @IBOutlet weak var videoTitleLabel: UILabel!
     
-    @IBOutlet weak var ingredientsTxt: UITextView!
-    @IBOutlet weak var addToShoppingOutlet: UIButton!
+    @IBOutlet weak var ingredientsTxt: UILabel!
+    @IBOutlet weak var preparationTxt: UILabel!
     
-    
-    @IBOutlet weak var preparationTxt: UITextView!
+    @IBOutlet weak var conHeightWebView: NSLayoutConstraint!
+    @IBOutlet weak var conBottomBtnAdd: NSLayoutConstraint!
     
     //Ad banners properties
     var adMobBannerView = GADBannerView()
-    
-    @IBOutlet weak var commentsLabel: UILabel!
-    
     
     /* Variables */
     var recipeObj = PFObject(className: RECIPES_CLASS_NAME)
@@ -66,48 +57,8 @@ GADBannerViewDelegate
 override func viewDidLoad() {
         super.viewDidLoad()
         
-    self.edgesForExtendedLayout = UIRectEdge()
+        self.edgesForExtendedLayout = UIRectEdge()
     self.title = "RECIPE"
-    
-    // Round views corners
-    avatarImage.layer.cornerRadius = avatarImage.bounds.size.width/2
-    for label in timingLabels {
-        label.layer.cornerRadius = label.bounds.size.width/2
-        label.layer.borderColor = UIColor.lightGray.cgColor
-        label.layer.borderWidth = 1.5
-    }
-    addToShoppingOutlet.layer.cornerRadius = 5
-
-    coverImage.roundedImageTop()
-    containerScrollView.roundedScrollViewBottom()
-    
-    // Initialize a BACK BarButton Item
-    let backButt = UIButton(type: .custom)
-    backButt.adjustsImageWhenHighlighted = false
-    backButt.frame = CGRect(x: 0, y: 0, width: 44, height: 44)
-    backButt.setBackgroundImage(UIImage(named: "backButt"), for: .normal)
-    backButt.addTarget(self, action: #selector(backButton(_:)), for: .touchUpInside)
-    navigationItem.leftBarButtonItem = UIBarButtonItem(customView: backButt)
-
-    
-    // Initialize a SHARE BarButton Item
-    let shareButt = UIButton(type: .custom)
-    shareButt.adjustsImageWhenHighlighted = false
-    shareButt.frame = CGRect(x: 0, y: 0, width: 44, height: 44)
-    shareButt.setBackgroundImage(UIImage(named: "shareButt"), for: .normal)
-    shareButt.addTarget(self, action: #selector(shareButton(_:)), for: .touchUpInside)
-
-    // Init a REPORT RECIPE button
-    let reportButt = UIButton(type: .custom)
-    reportButt.adjustsImageWhenHighlighted = false
-    reportButt.frame = CGRect(x: 0, y: 0, width: 44, height: 44)
-    reportButt.setBackgroundImage(UIImage(named: "reportButt"), for: .normal)
-    reportButt.addTarget(self, action: #selector(reportRecipesButt), for: .touchUpInside)
-
-    navigationItem.rightBarButtonItems = [UIBarButtonItem(customView: shareButt), UIBarButtonItem(customView: reportButt)]
-    
-    // navigationItem.rightBarButtonItem = UIBarButtonItem(customView: shareButt)
-
     
     // Init ad banners
     initAdMobBanner()
@@ -117,7 +68,13 @@ override func viewDidLoad() {
     showRecipeDetails()
 }
 
-    
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.isNavigationBarHidden = true  //Hide
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        self.navigationController?.isNavigationBarHidden = false  //Show
+    }
     
     
     
@@ -153,8 +110,12 @@ func showRecipeDetails() {
 
             
             // Get User's details
-            if userPointer[USER_JOB] != nil { self.userFullNameLabel.text = "Made by: \(userPointer[USER_FULLNAME]!), \(userPointer[USER_JOB]!)"
-            } else { self.userFullNameLabel.text = "Made by: \(userPointer[USER_FULLNAME]!)" }
+            if userPointer[USER_JOB] != nil {
+                self.userFullNameLabel.text = "\(userPointer[USER_FULLNAME]!) (\(userPointer[USER_JOB]!))"
+            }
+            else {
+                self.userFullNameLabel.text = "\(userPointer[USER_FULLNAME]!)"
+            }
 
     
             // Get avatar image
@@ -169,10 +130,11 @@ func showRecipeDetails() {
             self.aboutReceipeLabel.text = "\(self.recipeObj[RECIPES_ABOUT]!)"
             self.difficultyLabel.text = "Difficulty: \(self.recipeObj[RECIPES_DIFFICULTY]!)"
             
-            self.cookingLabel.text = "Cooking:\n\(self.recipeObj[RECIPES_COOKING]!)"
-            self.bakingLabel.text = "Baking:\n\(self.recipeObj[RECIPES_BAKING]!)"
-            self.restingLabel.text = "Resting:\n\(self.recipeObj[RECIPES_RESTING]!)"
+            self.cookingLabel.text = "Cooking\n\(self.recipeObj[RECIPES_COOKING]!)"
+            self.bakingLabel.text = "Baking\n\(self.recipeObj[RECIPES_BAKING]!)"
+            self.restingLabel.text = "Resting\n\(self.recipeObj[RECIPES_RESTING]!)"
 
+            var isVideo = false
             // Get video
             if self.recipeObj[RECIPES_YOUTUBE] != nil {
                 if "\(self.recipeObj[RECIPES_YOUTUBE]!)" != "" {
@@ -180,27 +142,27 @@ func showRecipeDetails() {
                     let videoId = youtubeLink.replacingOccurrences(of: "https://youtu.be/", with: "")
                     let embedHTML = "<iframe width='\(self.videoWebView.frame.size.width)' height='\(self.videoWebView.frame.size.height)' src='https://www.youtube.com/embed/\(videoId)?rel=0&amp;controls=0&amp;showinfo=0' frameborder='0' allowfullscreen></iframe>"
                     self.videoWebView.loadHTMLString(embedHTML, baseURL: nil)
-                } else {
-                    self.videoWebView.isHidden = true
+                    isVideo = true
                 }
+            }
                 
-            } else { self.videoWebView.isHidden = true }
+            if !isVideo{
+                    self.videoTitleLabel.text = "No video Available"
+                    self.videoWebView.isHidden = true
+                    self.conHeightWebView.constant = 0
+                    self.view.layoutIfNeeded()
+            }
     
-            if self.recipeObj[RECIPES_VIDEO_TITLE] != nil { self.videoTitleLabel.text = "\(self.recipeObj[RECIPES_VIDEO_TITLE]!)"
-            } else { self.videoTitleLabel.text = "No video Available" }
+            if let text = self.recipeObj[RECIPES_VIDEO_TITLE] as? String, text.count != 0{
+                self.videoTitleLabel.text = text
+            }
     
             // Get Ingredients and make an array (for your Shopping List)
             self.ingredientsTxt.text = "\(self.recipeObj[RECIPES_INGREDIENTS]!)"
-            self.ingredientsArray = self.ingredientsTxt.text.components(separatedBy: "\n")
+            self.ingredientsArray = self.ingredientsTxt.text?.components(separatedBy: "\n") ?? []
     
             // Get Preparstion Steps
             self.preparationTxt.text = "\(self.recipeObj[RECIPES_PREPARATION]!)"
-            self.preparationTxt.sizeToFit()
-    
-    
-            // Finally set the ScrollView content size
-            self.recipeView.frame.size.height = self.preparationTxt.frame.size.height + self.preparationTxt.frame.origin.y + self.recipeView.frame.origin.y
-            self.containerScrollView.contentSize = CGSize(width: self.containerScrollView.frame.size.width, height: self.recipeView.frame.size.height + self.recipeView.frame.origin.y)
             
         } else {
             self.simpleAlert("\(error!.localizedDescription)")
@@ -343,7 +305,7 @@ func showRecipeDetails() {
   
     
 // MARK: - SHARE BUTTON
-@objc func shareButton(_ sender:UIButton) {
+    @IBAction func btnShare(_ sender: Any) {
     let messageStr  = "I love this Recipe: \(recipeObj[RECIPES_TITLE]!), found on #\(APP_NAME)"
     
     let shareItems = [messageStr]
@@ -370,20 +332,14 @@ func showRecipeDetails() {
     navigationController?.pushViewController(aVC, animated: true)
 }
     
-    
-    
 // MARK: - BACK BUTTON
-@objc func backButton(_ sender:UIButton) {
+    @IBAction func btnBack(_ sender: Any) {
     _ = navigationController?.popViewController(animated: true)
 }
-    
-    
- 
-    
-    
+
     
 // MARK: - REPORT RECIPE BUTTON
-@objc func reportRecipesButt() {
+    @IBAction func btnReport(_ sender: Any) {
     
     let alert = UIAlertController(title: APP_NAME,
         message: "Tell us briefly why you're reporting this Recipe",
@@ -432,7 +388,7 @@ func showRecipeDetails() {
 // MARK: - ADMOB BANNER METHODS
     func initAdMobBanner() {
         adMobBannerView.adSize =  GADAdSizeFromCGSize(CGSize(width: 320, height: 50))
-        adMobBannerView.frame = CGRect(x: 0, y: self.view.frame.size.height, width: 320, height: 50)
+        adMobBannerView.frame = CGRect(x: 0, y: self.view.bounds.size.height, width: self.view.bounds.size.width, height: 50)
         adMobBannerView.adUnitID = ADMOB_BANNER_UNIT_ID
         adMobBannerView.rootViewController = self
         adMobBannerView.delegate = self
@@ -447,6 +403,8 @@ func showRecipeDetails() {
         UIView.beginAnimations("hideBanner", context: nil)
         
         banner.frame = CGRect(x: 0, y: self.view.frame.size.height, width: banner.frame.size.width, height: banner.frame.size.height)
+        conBottomBtnAdd.constant = 0
+        self.view.layoutIfNeeded()
         UIView.commitAnimations()
         banner.isHidden = true
         
@@ -454,10 +412,14 @@ func showRecipeDetails() {
     
     // Show the banner
     func showBanner(_ banner: UIView) {
+        let h : CGFloat = CommonUtils.hasTopNotch() ? 34 : 0
+        
         UIView.beginAnimations("showBanner", context: nil)
         banner.frame = CGRect(x: view.frame.size.width/2 - banner.frame.size.width/2,
-                              y: view.frame.size.height - banner.frame.size.height,
+                              y: view.frame.size.height - banner.frame.size.height - h,
                               width: banner.frame.size.width, height: banner.frame.size.height);
+        conBottomBtnAdd.constant = 50
+        self.view.layoutIfNeeded()
         UIView.commitAnimations()
         banner.isHidden = false
     }

@@ -22,7 +22,6 @@ GADBannerViewDelegate
 {
 
     /* Views */
-    @IBOutlet weak var containerScrollView: UIScrollView!
     @IBOutlet weak var titleTxt: UITextField!
     @IBOutlet weak var categoriesPickerView: UIPickerView!
     @IBOutlet weak var storyTxt: UITextView!
@@ -35,13 +34,12 @@ GADBannerViewDelegate
     @IBOutlet weak var ingredientsTxt: UITextView!
     @IBOutlet weak var preparationTxt: UITextView!
     @IBOutlet weak var coverImage: UIImageView!
-    @IBOutlet weak var mainView: UIView!
+    
     @IBOutlet weak var submitOutlet: UIButton!
+    @IBOutlet weak var conBottomBtnSubmit: NSLayoutConstraint!
     
     //Ad banners properties
     var adMobBannerView = GADBannerView()
-    
-    
     
     /* Variables */
     var recipeObj = PFObject(className: RECIPES_CLASS_NAME)
@@ -49,65 +47,25 @@ GADBannerViewDelegate
     var selectedCategory = ""
     var difficultyStr = ""
     
-    
-    
-    
 
 override func viewDidLoad() {
     super.viewDidLoad()
     
-    mainView.layer.cornerRadius = 10
-    mainView.layer.shadowOpacity = 1
-    mainView.layer.shadowRadius = 5.0
-    mainView.layer.shadowOffset = CGSize(width: 0.0, height: 4.0)
-    mainView.layer.masksToBounds = false
-    mainView.layer.shadowPath = UIBezierPath(roundedRect: mainView.bounds, cornerRadius: mainView.layer.cornerRadius).cgPath
-    mainView.layer.shadowColor = UIColor(red: 128.0/255, green: 128.0/255, blue: 128.0/255, alpha: 1.0).cgColor
-    
+    self.navigationController?.navigationBar.addGradientNavigationBar(colors: [ThemeColor, GredientLightColor], angle: 135)
     
     // Check if your Adding or Editing a recipe
     if recipeObj[RECIPES_TITLE] == nil {
-        self.title = "ADD RECIPE"
+        self.title = "Add New Recipe"
         submitOutlet.setTitle("Submit your Recipe!", for: .normal)
+        self.navigationItem.rightBarButtonItem = nil
         selectedCategory = ""
         difficultyStr = ""
 
     } else {
-        self.title = "EDIT RECIPE"
+        self.title = "Edit Recipe"
         submitOutlet.setTitle("Update your Recipe", for: .normal)
-        
-        // Initialize a DELETE BarButton Item
-        let delButt = UIButton(type: .custom)
-        delButt.adjustsImageWhenHighlighted = false
-        delButt.frame = CGRect(x: 0, y: 0, width: 44, height: 44)
-        delButt.setBackgroundImage(UIImage(named: "deleteButt"), for: .normal)
-        delButt.addTarget(self, action: #selector(deleteRecipe(_:)), for: .touchUpInside)
-        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: delButt)
-        
         showRecipeDetails()
     }
-    
-
-    
-    
-    // Initialize a BACK BarButton Item
-    let butt = UIButton(type: UIButtonType.custom)
-    butt.adjustsImageWhenHighlighted = false
-    butt.frame = CGRect(x: 0, y: 0, width: 44, height: 44)
-    butt.setBackgroundImage(UIImage(named: "backButt"), for: .normal)
-    butt.addTarget(self, action: #selector(backButt(_:)), for: .touchUpInside)
-    navigationItem.leftBarButtonItem = UIBarButtonItem(customView: butt)
-
-    
-    // Round views corners
-    categoriesPickerView.layer.cornerRadius = 10
-    for butt in difficultyButtons { butt.layer.cornerRadius = 5 }
-    coverImage.layer.cornerRadius = 10
-    submitOutlet.layer.cornerRadius = 5
-
-    
-    // Set content Size of containerScrollView
-    containerScrollView.contentSize = CGSize(width: containerScrollView.frame.size.width, height: 1500)
     
     createKeyboardToolbar()
     
@@ -136,7 +94,7 @@ func createKeyboardToolbar() {
     // Dismiss keyboard button
     let dismissButt = UIButton(type: .custom)
     dismissButt.frame = CGRect(x: keyboardToolbar.frame.size.width-44, y: 0, width: 44, height: 44)
-    dismissButt.setBackgroundImage(UIImage(named: "dismissButt"), for: .normal)
+    dismissButt.setImage(UIImage(named: "dismissButt"), for: .normal)
     dismissButt.addTarget(self, action: #selector(dismissKeyboard(_:)), for: .touchUpInside)
     keyboardToolbar.addSubview(dismissButt)
 
@@ -229,8 +187,6 @@ func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent co
             
 return label!
 }
-
-
     
 // MARK: - DIFFICULTY BUTTONS
 @IBAction func difficultyButt(_ sender: AnyObject) {
@@ -244,7 +200,7 @@ return label!
     print("SEL. DIFFICULTY: \(difficultyStr)")
     
     butt.setTitleColor(UIColor.white, for: .normal)
-    butt.backgroundColor = UIColor.black
+    butt.backgroundColor = ThemeColor
 }
   
     
@@ -366,7 +322,7 @@ func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMe
   
  
 // MARK: - DELETE RECIPE BUTTON
-@objc func deleteRecipe(_ sender: UIButton) {
+@IBAction func btnDelete(_ sender: Any) {
     likesArray.removeAll()
     
     // DELETE ALL LIKES
@@ -403,7 +359,7 @@ func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMe
     
     
 // MARK: - BACK BUTTON
-@objc func backButt(_ sender:UIButton) {
+@IBAction func btnBack(_ sender: Any) {
     _ = navigationController?.popViewController(animated: true)
 }
     
@@ -431,7 +387,7 @@ return true
 // MARK: - ADMOB BANNER METHODS
 func initAdMobBanner() {
     adMobBannerView.adSize =  GADAdSizeFromCGSize(CGSize(width: 320, height: 50))
-    adMobBannerView.frame = CGRect(x: 0, y: view.frame.size.height, width: 320, height: 50)
+    adMobBannerView.frame = CGRect(x: 0, y: view.frame.size.height, width: self.view.bounds.size.width, height: 50)
     adMobBannerView.adUnitID = ADMOB_BANNER_UNIT_ID
     adMobBannerView.rootViewController = self
     adMobBannerView.delegate = self
@@ -446,27 +402,25 @@ func initAdMobBanner() {
         UIView.beginAnimations("hideBanner", context: nil)
         
         banner.frame = CGRect(x: 0, y: self.view.frame.size.height, width: banner.frame.size.width, height: banner.frame.size.height)
+        conBottomBtnSubmit.constant = 0
+        self.view.layoutIfNeeded()
         UIView.commitAnimations()
         banner.isHidden = true
-        
     }
     
     // Show the banner
     func showBanner(_ banner: UIView) {
-        var h: CGFloat = 0
-        // iPhone X
-        if UIScreen.main.bounds.size.height == 812 { h = 84
-        } else { h = 48 }
+        let h : CGFloat = CommonUtils.hasTopNotch() ? 34.0 : 0.0
         
         UIView.beginAnimations("showBanner", context: nil)
         banner.frame = CGRect(x: view.frame.size.width/2 - banner.frame.size.width/2,
                               y: view.frame.size.height - banner.frame.size.height - h,
                               width: banner.frame.size.width, height: banner.frame.size.height);
+        conBottomBtnSubmit.constant = 50
+        self.view.layoutIfNeeded()
         UIView.commitAnimations()
         banner.isHidden = false
     }
-    
-
     
     // AdMob banner available
     func adViewDidReceiveAd(_ view: GADBannerView) {
