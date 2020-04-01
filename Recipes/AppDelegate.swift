@@ -10,7 +10,7 @@ All Rights reserved
 import UIKit
 import Parse
 import ParseFacebookUtilsV4
-
+import IQKeyboardManagerSwift
 
 
 @UIApplicationMain
@@ -21,6 +21,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 
+        IQKeyboardManager.shared.enable = true
+        IQKeyboardManager.shared.toolbarTintColor = ThemeColor
+        
         // Set App ID
         let configuration = ParseClientConfiguration {
             $0.applicationId = PARSE_APP_KEY
@@ -28,9 +31,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             $0.server = "https://parseapi.back4app.com"
         }
         Parse.initialize(with: configuration)
-        
-
-    
         
         // REGISTER FOR PUSH NOTIFICATIONS
         let notifTypes:UIUserNotificationType  = [.alert, .badge, .sound]

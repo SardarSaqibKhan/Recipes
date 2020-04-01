@@ -13,18 +13,15 @@ import Parse
 import GoogleMobileAds
 import AudioToolbox
 
+import Lottie
+
 // GLOBAL VARIABLES (DO NOT EDIT THEM)
 var categoryStr = String()
 var shoppingArray:[String] = []
 
 
 
-class Recipes: UIViewController,
-UICollectionViewDataSource,
-UICollectionViewDelegate,
-UICollectionViewDelegateFlowLayout,
-UISearchBarDelegate,
-GADBannerViewDelegate
+class Recipes: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UISearchBarDelegate, GADBannerViewDelegate
 {
 
     /* Views */
@@ -49,7 +46,7 @@ GADBannerViewDelegate
     var likesArray = [PFObject]()
     var cellSize = CGSize()
     
-    
+    let animationView = AnimationView()
     
     
 override func viewDidAppear(_ animated: Bool) {
@@ -77,6 +74,10 @@ override func viewDidAppear(_ animated: Bool) {
 override func viewDidLoad() {
         super.viewDidLoad()
 
+//    self.performSegue(withIdentifier: "StartAnimation", sender: self)
+    self.playAnimation()
+    
+    
     self.navigationController?.navigationBar.addGradientNavigationBar(colors: [ThemeColor, GredientLightColor], angle: 135)
     
     // Load Shopping Array
@@ -218,18 +219,28 @@ func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath:
 func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
     return cellSize
 }
-    
-func scrollViewDidScroll(_ scrollView: UIScrollView) {
+  
+// MARK: - Animation
+    func playAnimation(){
+        DispatchQueue.main.asyncAfter(deadline: .now() + 5.5, execute: {
+            UIView.animate(withDuration: 0.5, animations: {
+                self.animationView.alpha = 0.0
+            }) { (sucess) in
+                self.animationView.removeFromSuperview()
+            }
+        })
         
-    let visibleCells = recipesCollView.visibleCells as! [RecipesCell]
-    for cell in visibleCells
-    {
-        var frame = cell.coverImage.frame
-        let yOffset: CGFloat = ((recipesCollView.contentOffset.y - cell.frame.origin.y) / frame.size.height) * 20.0
-        frame.origin.y = yOffset
-        cell.coverImage.frame = frame
+        animationView.frame = UIScreen.main.bounds
+        animationView.addGradient(colors: [ThemeColor, GredientLightColor], angle: 135)
+        let animation = Animation.named("animation")
+        animationView.animation = animation
+        animationView.contentMode = .scaleAspectFit
+        
+        let win:UIWindow = UIApplication.shared.delegate!.window!!
+        win.addSubview(animationView)
+        
+        animationView.play()
     }
-}
     
 // MARK: - TAP A CELL -> SHOW RECIPE
 func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -242,7 +253,20 @@ func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPat
     navigationController?.pushViewController(rdVC, animated: true)
     
 }
-    
+
+// MARK: - Scroll View
+func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
+    let visibleCells = recipesCollView.visibleCells as! [RecipesCell]
+    for cell in visibleCells
+    {
+        var frame = cell.coverImage.frame
+        let yOffset: CGFloat = ((recipesCollView.contentOffset.y - cell.frame.origin.y) / frame.size.height) * 20.0
+        frame.origin.y = yOffset
+        cell.coverImage.frame = frame
+    }
+}
+      
 
     
     

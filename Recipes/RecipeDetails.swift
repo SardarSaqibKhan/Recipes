@@ -13,7 +13,7 @@ import GoogleMobileAds
 import AudioToolbox
 
 class RecipeDetails: UIViewController,
-GADBannerViewDelegate
+GADBannerViewDelegate, UIScrollViewDelegate
 {
 
     /* Views */
@@ -153,7 +153,7 @@ func showRecipeDetails() {
                     self.view.layoutIfNeeded()
             }
     
-            if let text = self.recipeObj[RECIPES_VIDEO_TITLE] as? String, text.count != 0{
+            if let text = self.recipeObj[RECIPES_VIDEO_TITLE] as? String{
                 self.videoTitleLabel.text = text
             }
     
@@ -336,7 +336,6 @@ func showRecipeDetails() {
     @IBAction func btnBack(_ sender: Any) {
     _ = navigationController?.popViewController(animated: true)
 }
-
     
 // MARK: - REPORT RECIPE BUTTON
     @IBAction func btnReport(_ sender: Any) {

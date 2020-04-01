@@ -336,7 +336,10 @@ func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath:
                                     
                     // Assign tags
                     cell.likeOutlet.tag = indexPath.row
+                    cell.likeOutlet.isEnabled = true
                     cell.avatarOutlet.tag = indexPath.row
+                    cell.avatarOutlet.isEnabled = true
+                    
                 
                 } else {
                     self.simpleAlert("\(error!.localizedDescription)")
@@ -347,7 +350,7 @@ func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath:
         } else {
             cell.titleLabel.text = "REPORTED!"
             cell.categoryLabel.text = ""
-            cell.fullNameLabel.text = ""
+//            cell.fullNameLabel.text = ""
             cell.likesLabel.text = "N/A"
             cell.coverImage.image = nil
             cell.coverImage.backgroundColor = UIColor.darkGray
@@ -369,18 +372,6 @@ func collectionView(_ collectionView: UICollectionView, layout collectionViewLay
     return cellSize
 }
     
-func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        
-    let visibleCells = likedRecipesCollView.visibleCells as! [RecipesCell]
-    for cell in visibleCells
-    {
-        var frame = cell.coverImage.frame
-        let yOffset: CGFloat = ((likedRecipesCollView.contentOffset.y - cell.frame.origin.y) / frame.size.height) * 20.0
-        frame.origin.y = yOffset
-        cell.coverImage.frame = frame
-    }
-}
-    
 // MARK: - TAP A CELL -> SHOW RECIPE
 func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
     var likesClass = PFObject(className: LIKES_CLASS_NAME)
@@ -396,6 +387,19 @@ func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPat
         } else {
             self.simpleAlert("This Recipe has been reported!")
         }
+    }
+}
+    
+// MARK: - Scroll View
+func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
+    let visibleCells = likedRecipesCollView.visibleCells as! [RecipesCell]
+    for cell in visibleCells
+    {
+        var frame = cell.coverImage.frame
+        let yOffset: CGFloat = ((likedRecipesCollView.contentOffset.y - cell.frame.origin.y) / frame.size.height) * 20.0
+        frame.origin.y = yOffset
+        cell.coverImage.frame = frame
     }
 }
     
@@ -497,6 +501,7 @@ func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPat
 // MARK: - LOGIN BUTTON
 @IBAction func loginButt(_ sender: AnyObject) {
     let loginVC = storyboard?.instantiateViewController(withIdentifier: "Login") as! Login
+    loginVC.modalPresentationStyle = .fullScreen
     present(loginVC, animated: true, completion: nil)
 }
     

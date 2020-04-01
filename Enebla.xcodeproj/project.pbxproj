@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -50,13 +50,18 @@
 		72ED08351C3E8055008491CB /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72ED08341C3E8055008491CB /* MessageUI.framework */; };
 		72ED083C1C3E955F008491CB /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72ED083A1C3E955F008491CB /* Login.swift */; };
 		72ED083D1C3E955F008491CB /* SignUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72ED083B1C3E955F008491CB /* SignUp.swift */; };
+		B70B039924265526003091D3 /* AnimationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B70B039824265526003091D3 /* AnimationVC.swift */; };
+		B70B039B242657A0003091D3 /* animation.json in Resources */ = {isa = PBXBuildFile; fileRef = B70B039A2426579F003091D3 /* animation.json */; };
 		B77D460123D6D2CF000DB162 /* Montserrat-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = B77D45FF23D6D2CF000DB162 /* Montserrat-Regular.otf */; };
 		B77D460423D6D32C000DB162 /* Montserrat-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = B77D460323D6D32C000DB162 /* Montserrat-Light.otf */; };
 		B77D460623D6E9EC000DB162 /* CommonUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = B77D460523D6E9EC000DB162 /* CommonUtils.swift */; };
+		DB7B6CF8FBE079817B0068D3 /* Pods_Enebla.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FE24F6C7CE09A76DBA01B90 /* Pods_Enebla.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		13ED9AD21F31AA2000880DD8 /* Comments.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Comments.swift; sourceTree = "<group>"; };
+		2A45B777AEAA0DB3B19DF995 /* Pods-Enebla.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Enebla.release.xcconfig"; path = "Target Support Files/Pods-Enebla/Pods-Enebla.release.xcconfig"; sourceTree = "<group>"; };
+		4FE24F6C7CE09A76DBA01B90 /* Pods_Enebla.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Enebla.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		72295A1E1C3FAC93009502DA /* AddEditRecipe.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddEditRecipe.swift; sourceTree = "<group>"; };
 		72295A201C400386009502DA /* EditProfile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditProfile.swift; sourceTree = "<group>"; };
 		722C70B91C3AAFC000866465 /* Enebla.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Enebla.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -102,9 +107,12 @@
 		72ED08341C3E8055008491CB /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		72ED083A1C3E955F008491CB /* Login.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
 		72ED083B1C3E955F008491CB /* SignUp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUp.swift; sourceTree = "<group>"; };
+		B70B039824265526003091D3 /* AnimationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationVC.swift; sourceTree = "<group>"; };
+		B70B039A2426579F003091D3 /* animation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = animation.json; sourceTree = "<group>"; };
 		B77D45FF23D6D2CF000DB162 /* Montserrat-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Regular.otf"; sourceTree = "<group>"; };
 		B77D460323D6D32C000DB162 /* Montserrat-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Light.otf"; sourceTree = "<group>"; };
 		B77D460523D6E9EC000DB162 /* CommonUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonUtils.swift; sourceTree = "<group>"; };
+		E90096A3071B7D89DACA8C36 /* Pods-Enebla.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Enebla.debug.xcconfig"; path = "Target Support Files/Pods-Enebla/Pods-Enebla.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -136,6 +144,7 @@
 				722C70D51C3AAFFD00866465 /* CoreLocation.framework in Frameworks */,
 				722C70D31C3AAFF600866465 /* CoreGraphics.framework in Frameworks */,
 				722C70D11C3AAFF200866465 /* CFNetwork.framework in Frameworks */,
+				DB7B6CF8FBE079817B0068D3 /* Pods_Enebla.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -158,6 +167,7 @@
 				722C70BB1C3AAFC000866465 /* Recipes */,
 				722C70E41C3AB02300866465 /* Frameworks */,
 				722C70BA1C3AAFC000866465 /* Products */,
+				92A7CAC2E9F62A292A72035B /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -183,10 +193,12 @@
 				7238501D1C3C038300430975 /* RecipeDetails.swift */,
 				13ED9AD21F31AA2000880DD8 /* Comments.swift */,
 				7238501F1C3C319A00430975 /* Shopping.swift */,
+				B70B039824265526003091D3 /* AnimationVC.swift */,
 				72295A221C40038A009502DA /* Account Profile */,
 				72295A1E1C3FAC93009502DA /* AddEditRecipe.swift */,
 				72ACA51E1C40175500AD653D /* OtherUserProfile.swift */,
 				B77D460523D6E9EC000DB162 /* CommonUtils.swift */,
+				B70B039A2426579F003091D3 /* animation.json */,
 				B77D45FA23D339AC000DB162 /* Font */,
 				722C70C31C3AAFC000866465 /* Assets.xcassets */,
 				722C70C81C3AAFC000866465 /* Info.plist */,
@@ -221,6 +233,7 @@
 				722C70D21C3AAFF600866465 /* CoreGraphics.framework */,
 				722C70D01C3AAFF200866465 /* CFNetwork.framework */,
 				722C70CE1C3AAFED00866465 /* AudioToolbox.framework */,
+				4FE24F6C7CE09A76DBA01B90 /* Pods_Enebla.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -234,6 +247,15 @@
 				727022C71C3E9A2100B723BD /* tou.html */,
 			);
 			name = "Login-SignUp";
+			sourceTree = "<group>";
+		};
+		92A7CAC2E9F62A292A72035B /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				E90096A3071B7D89DACA8C36 /* Pods-Enebla.debug.xcconfig */,
+				2A45B777AEAA0DB3B19DF995 /* Pods-Enebla.release.xcconfig */,
+			);
+			path = Pods;
 			sourceTree = "<group>";
 		};
 		B77D45FA23D339AC000DB162 /* Font */ = {
@@ -252,9 +274,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 722C70CB1C3AAFC000866465 /* Build configuration list for PBXNativeTarget "Enebla" */;
 			buildPhases = (
+				0DDC8CDE50D3E45235ACB2CC /* [CP] Check Pods Manifest.lock */,
 				722C70B51C3AAFC000866465 /* Sources */,
 				722C70B61C3AAFC000866465 /* Frameworks */,
 				722C70B71C3AAFC000866465 /* Resources */,
+				7352A250BE56958D9950E6AC /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -277,9 +301,7 @@
 				TargetAttributes = {
 					722C70B81C3AAFC000866465 = {
 						CreatedOnToolsVersion = 7.2;
-						DevelopmentTeam = 5Y3ZALTC4Q;
 						LastSwiftMigration = 0900;
-						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -322,11 +344,54 @@
 				722C70C21C3AAFC000866465 /* Main.storyboard in Resources */,
 				727022C81C3E9A2100B723BD /* tou.html in Resources */,
 				B77D460123D6D2CF000DB162 /* Montserrat-Regular.otf in Resources */,
+				B70B039B242657A0003091D3 /* animation.json in Resources */,
 				B77D460423D6D32C000DB162 /* Montserrat-Light.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		0DDC8CDE50D3E45235ACB2CC /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Enebla-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7352A250BE56958D9950E6AC /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Enebla/Pods-Enebla-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Enebla/Pods-Enebla-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Enebla/Pods-Enebla-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		722C70B51C3AAFC000866465 /* Sources */ = {
@@ -348,6 +413,7 @@
 				722C70F21C3ABBC200866465 /* RecipesCell.swift in Sources */,
 				72295A211C400386009502DA /* EditProfile.swift in Sources */,
 				72ED083D1C3E955F008491CB /* SignUp.swift in Sources */,
+				B70B039924265526003091D3 /* AnimationVC.swift in Sources */,
 				72ED083C1C3E955F008491CB /* Login.swift in Sources */,
 				13ED9AD31F31AA2000880DD8 /* Comments.swift in Sources */,
 			);
@@ -476,14 +542,15 @@
 		};
 		722C70CC1C3AAFC000866465 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E90096A3071B7D89DACA8C36 /* Pods-Enebla.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
 				CODE_SIGN_ENTITLEMENTS = Recipes/Recipes.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = 5Y3ZALTC4Q;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -500,7 +567,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.eltechsoftwares.Enebla;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = Enebla;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
@@ -510,14 +577,15 @@
 		};
 		722C70CD1C3AAFC000866465 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2A45B777AEAA0DB3B19DF995 /* Pods-Enebla.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
 				CODE_SIGN_ENTITLEMENTS = Recipes/Recipes.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = 5Y3ZALTC4Q;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -534,7 +602,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.eltechsoftwares.Enebla;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = Enebla;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;

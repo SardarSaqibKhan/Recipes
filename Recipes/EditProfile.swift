@@ -33,34 +33,12 @@ override func viewDidLoad() {
 
     self.navigationController?.navigationBar.addGradientNavigationBar(colors: [ThemeColor, GredientLightColor], angle: 135)
         
-    createKeyboardToolbar()
+
     showUserDetails()
 }
 
     
-// MARK: - TOOLBAR TO DISMISS THE KEYBOARD
-func createKeyboardToolbar() {
-    let keyboardToolbar = UIView()
-    keyboardToolbar.frame = CGRect(x: 0, y: 0, width: view.frame.size.width, height: 44)
-    keyboardToolbar.backgroundColor = UIColor.clear
-    keyboardToolbar.autoresizingMask = UIViewAutoresizing.flexibleWidth
-    fullnameTxt.inputAccessoryView = keyboardToolbar
-    occupationTxt.inputAccessoryView = keyboardToolbar
-    aboutMeTxt.inputAccessoryView = keyboardToolbar
-    
-    // Dismiss keyboard button
-    let dismissButt = UIButton(type: .custom)
-    dismissButt.frame = CGRect(x: keyboardToolbar.frame.size.width-44, y: 0, width: 44, height: 44)
-    dismissButt.setImage(UIImage(named: "dismissButt"), for: .normal)
-    dismissButt.addTarget(self, action: #selector(dismissKeyboard(_:)), for: .touchUpInside)
-    keyboardToolbar.addSubview(dismissButt)
-        
-}
-@objc func dismissKeyboard(_ sender:UIButton) {
-    fullnameTxt.resignFirstResponder()
-    occupationTxt.resignFirstResponder()
-    aboutMeTxt.resignFirstResponder()
-}
+
 
     
     

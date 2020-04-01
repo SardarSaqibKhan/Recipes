@@ -65,7 +65,7 @@ var animImage = UIImageView(frame: CGRect(x: 15, y: 15, width: 50, height: 50))
 extension UIViewController {
     func showHUD() {
         hudView.frame = CGRect(x: 0, y: 0, width: 80, height: 80)
-        hudView.center = view.center
+        hudView.center = self.view.center
         hudView.backgroundColor = ThemeColor
         hudView.addGradient(colors: [ThemeColor, GredientLightColor], angle: 135)
         hudView.clipsToBounds = true
@@ -85,10 +85,13 @@ extension UIViewController {
     
     func hideHUD() {  hudView.removeFromSuperview()  }
     
-    func simpleAlert(_ mess:String) {
-        let alert = UIAlertController(title: APP_NAME, message: mess, preferredStyle: .alert)
-        let ok = UIAlertAction(title: "OK", style: .default, handler: { (action) -> Void in })
-        alert.addAction(ok)
+    func simpleAlert(_ message:String, completion : (() -> Void)? = nil) {
+        let alert = UIAlertController(title: APP_NAME, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction.init(title: "Ok", style: .default, handler: { (btn) in
+            if completion != nil{
+                completion!()
+            }
+        }))
         present(alert, animated: true, completion: nil)
     }
 }

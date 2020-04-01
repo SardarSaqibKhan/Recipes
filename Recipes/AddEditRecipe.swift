@@ -11,19 +11,21 @@ import UIKit
 import Parse
 import GoogleMobileAds
 import AudioToolbox
+import IQDropDownTextField
 
 class AddEditRecipe: UIViewController,
-UIPickerViewDataSource,
-UIPickerViewDelegate,
 UITextFieldDelegate,
 UIImagePickerControllerDelegate,
 UINavigationControllerDelegate,
+UIScrollViewDelegate,
 GADBannerViewDelegate
 {
 
+    @IBOutlet weak var mainScrollView: UIScrollView!
+    @IBOutlet weak var pageControl: UIPageControl!
     /* Views */
     @IBOutlet weak var titleTxt: UITextField!
-    @IBOutlet weak var categoriesPickerView: UIPickerView!
+    @IBOutlet weak var categoryTxt: IQDropDownTextField!
     @IBOutlet weak var storyTxt: UITextView!
     @IBOutlet var difficultyButtons: [UIButton]!
     @IBOutlet weak var cookingTxt: UITextField!
@@ -36,7 +38,8 @@ GADBannerViewDelegate
     @IBOutlet weak var coverImage: UIImageView!
     
     @IBOutlet weak var submitOutlet: UIButton!
-    @IBOutlet weak var conBottomBtnSubmit: NSLayoutConstraint!
+    
+    @IBOutlet weak var conBottomPageControl: NSLayoutConstraint!
     
     //Ad banners properties
     var adMobBannerView = GADBannerView()
@@ -44,7 +47,6 @@ GADBannerViewDelegate
     /* Variables */
     var recipeObj = PFObject(className: RECIPES_CLASS_NAME)
     var likesArray = [PFObject]()
-    var selectedCategory = ""
     var difficultyStr = ""
     
 
@@ -53,12 +55,13 @@ override func viewDidLoad() {
     
     self.navigationController?.navigationBar.addGradientNavigationBar(colors: [ThemeColor, GredientLightColor], angle: 135)
     
+    categoryTxt.itemList = categoriesArray
+    
     // Check if your Adding or Editing a recipe
     if recipeObj[RECIPES_TITLE] == nil {
         self.title = "Add New Recipe"
         submitOutlet.setTitle("Submit your Recipe!", for: .normal)
         self.navigationItem.rightBarButtonItem = nil
-        selectedCategory = ""
         difficultyStr = ""
 
     } else {
@@ -67,53 +70,9 @@ override func viewDidLoad() {
         showRecipeDetails()
     }
     
-    createKeyboardToolbar()
-    
     // Init ad banners
     initAdMobBanner()
 }
-
-    
-    
-// MARK: - TOOLBAR TO DISMISS THE KEYBOARD
-func createKeyboardToolbar() {
-    let keyboardToolbar = UIView()
-    keyboardToolbar.frame = CGRect(x: 0, y: 0, width: view.frame.size.width, height: 44)
-    keyboardToolbar.backgroundColor = UIColor.clear
-    keyboardToolbar.autoresizingMask = UIViewAutoresizing.flexibleWidth
-    titleTxt.inputAccessoryView = keyboardToolbar
-    storyTxt.inputAccessoryView = keyboardToolbar
-    cookingTxt.inputAccessoryView = keyboardToolbar
-    bakingTxt.inputAccessoryView = keyboardToolbar
-    restingTxt.inputAccessoryView = keyboardToolbar
-    youtubeTxt.inputAccessoryView = keyboardToolbar
-    videoTitleTxt.inputAccessoryView = keyboardToolbar
-    ingredientsTxt.inputAccessoryView = keyboardToolbar
-    preparationTxt.inputAccessoryView = keyboardToolbar
-
-    // Dismiss keyboard button
-    let dismissButt = UIButton(type: .custom)
-    dismissButt.frame = CGRect(x: keyboardToolbar.frame.size.width-44, y: 0, width: 44, height: 44)
-    dismissButt.setImage(UIImage(named: "dismissButt"), for: .normal)
-    dismissButt.addTarget(self, action: #selector(dismissKeyboard(_:)), for: .touchUpInside)
-    keyboardToolbar.addSubview(dismissButt)
-
-}
-@objc func dismissKeyboard(_ sender:UIButton) {
-    titleTxt.resignFirstResponder()
-    storyTxt.resignFirstResponder()
-    youtubeTxt.resignFirstResponder()
-    videoTitleTxt.resignFirstResponder()
-    cookingTxt.resignFirstResponder()
-    bakingTxt.resignFirstResponder()
-    restingTxt.resignFirstResponder()
-    ingredientsTxt.resignFirstResponder()
-    preparationTxt.resignFirstResponder()
-}
-    
-    
-    
-    
     
 // MARK: - SHOW RECIPE DETAILS
 func showRecipeDetails() {
@@ -129,18 +88,14 @@ func showRecipeDetails() {
     ingredientsTxt.text = "\(recipeObj[RECIPES_INGREDIENTS]!)"
     preparationTxt.text = "\(recipeObj[RECIPES_PREPARATION]!)"
     
-    // Auto select a row in the PickerView based on Recipe's Category
-    selectedCategory = "\(recipeObj[RECIPES_CATEGORY]!)"
-    let selectCateg: Int = categoriesArray.index(of: selectedCategory)!
-    categoriesPickerView.reloadAllComponents()
-    categoriesPickerView.selectRow(selectCateg, inComponent: 0, animated: true)
+    categoryTxt.selectedItem = "\(recipeObj[RECIPES_CATEGORY]!)"
     
     // Set difficulty button
     difficultyStr = "\(recipeObj[RECIPES_DIFFICULTY]!)"
     for butt in difficultyButtons {
         if butt.titleLabel?.text == difficultyStr {
             butt.setTitleColor(UIColor.white, for: .normal)
-            butt.backgroundColor = UIColor.black
+            butt.backgroundColor = ThemeColor
         }
     }
     
@@ -152,48 +107,14 @@ func showRecipeDetails() {
                 self.coverImage.image = UIImage(data:imageData)
     } } })
 }
-    
 
-    
-    
-// MARK: - PICKERVIEW DELEGATES
-func numberOfComponents(in pickerView: UIPickerView) -> Int {
-    return 1
-}
-func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-    return categoriesArray.count
-}
-func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-    return categoriesArray[row]
-}
-func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-    selectedCategory = "\(categoriesArray[row])"
-    print("SEL. CATEGORY BY PICKERVIEW: \(selectedCategory)")
-}
-
-// CUSTOMIZE FONT AND COLOR OF PICKERVIEW (*optional*)
-func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
-    var label = view as! UILabel?
-    if view == nil { label = UILabel() }
-    label?.textAlignment = .center
-    let rowText = categoriesArray[row]
-    
-    let attributedRowText = NSMutableAttributedString(string: rowText)
-    let attributedRowTextLength = attributedRowText.length
-    attributedRowText.addAttribute(NSAttributedStringKey.foregroundColor, value: UIColor.black, range: NSRange(location: 0, length: attributedRowTextLength))
-    attributedRowText.addAttribute(NSAttributedStringKey.font, value: UIFont(name: "HelveticaNeue-Light", size: 16)!, range: NSRange(location: 0 ,length:attributedRowTextLength))
-   
-    label!.attributedText = attributedRowText
-            
-return label!
-}
     
 // MARK: - DIFFICULTY BUTTONS
 @IBAction func difficultyButt(_ sender: AnyObject) {
     let butt = sender as! UIButton
     for butt in difficultyButtons {
         butt.setTitleColor(UIColor.black, for: .normal)
-        butt.backgroundColor = yellow
+        butt.backgroundColor = .lightGray
     }
     
     difficultyStr = butt.titleLabel!.text!
@@ -250,79 +171,112 @@ func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMe
 }
     
     
-    
-
-    
-
 // MARK: - SUBMIT/DELETE YOUR RECIPE
-@IBAction func submitButt(_ sender: AnyObject) {
-    
-    // Check if all required fields have been filled
-    if titleTxt.text == "" || selectedCategory == "" || storyTxt.text == "" ||
-        difficultyStr == "" || cookingTxt.text == "" || bakingTxt.text == "" ||
-        restingTxt.text == "" || ingredientsTxt.text == "" || preparationTxt.text == "" ||
-        coverImage.image == nil
-    {
-   
-        self.simpleAlert("You must fill all the required fields!")
-
-        
-    } else {
-        showHUD()
-        
-        let currentUser = PFUser.current()
-        recipeObj[RECIPES_USER_POINTER] = currentUser
-        recipeObj[RECIPES_TITLE] = titleTxt.text
-        recipeObj[RECIPES_TITLE_LOWERCASE] = titleTxt.text!.lowercased()
-        
-        // Save keywords
-        let keywords = titleTxt.text!.lowercased().components(separatedBy: " ")
-        recipeObj[RECIPES_KEYWORDS] = keywords
-        
-        recipeObj[RECIPES_CATEGORY] = selectedCategory
-        recipeObj[RECIPES_ABOUT] = storyTxt.text
-        recipeObj[RECIPES_DIFFICULTY] = difficultyStr
-        recipeObj[RECIPES_COOKING] = cookingTxt.text
-        recipeObj[RECIPES_BAKING] = bakingTxt.text
-        recipeObj[RECIPES_RESTING] = restingTxt.text
-        if youtubeTxt.text != "" { recipeObj[RECIPES_YOUTUBE] = youtubeTxt.text
-        } else { recipeObj[RECIPES_YOUTUBE] = "" }
-        if videoTitleTxt.text != "" { recipeObj[RECIPES_VIDEO_TITLE] = videoTitleTxt.text
-        } else { recipeObj[RECIPES_VIDEO_TITLE] = "" }
-        recipeObj[RECIPES_INGREDIENTS] = ingredientsTxt.text
-        recipeObj[RECIPES_PREPARATION] = preparationTxt.text
-        recipeObj[RECIPES_IS_REPORTED] = false
-        recipeObj[RECIPES_COMMENTS] = 0
-        recipeObj[RECIPES_LIKES] = 0
-
-        // Save Image (if exists)
-        if coverImage.image != nil {
-            let imageData = UIImageJPEGRepresentation(coverImage.image!, 0.8)
-            let imageFile = PFFile(name:"cover.jpg", data:imageData!)
-            recipeObj[RECIPES_COVER] = imageFile
+    @IBAction func btn1Next(_ sender: Any) {
+        if titleTxt.text == "" || categoryTxt.selectedItem == "" || storyTxt.text == "" {
+            self.simpleAlert("You must fill all the required fields!")
+            return
         }
-        
+        mainScrollView.setContentOffset(CGPoint.init(x: mainScrollView.frame.size.width, y: 0), animated: true)
+        pageControl.currentPage = 1
+    }
     
-        // Saving block
-        recipeObj.saveInBackground { (success, error) -> Void in
-            if error == nil {
-                self.simpleAlert("You've successfully submitted your recipe!")
-                self.hideHUD()
-            _ = self.navigationController?.popViewController(animated: true)
-        
-            } else {
-                self.simpleAlert("\(error!.localizedDescription)")
-                self.hideHUD()
-        }}
+    @IBAction func btn2Next(_ sender: Any) {
+        if difficultyStr == "" || cookingTxt.text == "" || bakingTxt.text == "" ||
+            restingTxt.text == "" || ingredientsTxt.text == "" || preparationTxt.text == "" {
+            self.simpleAlert("You must fill all the required fields!")
+            return
+        }
+        mainScrollView.setContentOffset(CGPoint.init(x: mainScrollView.frame.size.width * 2, y: 0), animated: true)
+        pageControl.currentPage = 2
+    }
     
+@IBAction func submitButt(_ sender: AnyObject) {
+    if titleTxt.text == "" || categoryTxt.selectedItem == "" || storyTxt.text == "" {
         
-    }// end IF
+        self.simpleAlert("You must fill all the required fields!"){
+            self.mainScrollView.setContentOffset(CGPoint.init(x: 0, y: 0), animated: true)
+            self.pageControl.currentPage = 0
+        }
+        return
+    }
+    if difficultyStr == "" || cookingTxt.text == "" || bakingTxt.text == "" ||
+        restingTxt.text == "" || ingredientsTxt.text == "" || preparationTxt.text == "" {
+        
+        self.simpleAlert("You must fill all the required fields!") {
+            self.mainScrollView.setContentOffset(CGPoint.init(x: self.mainScrollView.frame.size.width, y: 0), animated: true)
+            self.pageControl.currentPage = 1
+        }
+        return
+    }
+    if coverImage.image == nil {
+        self.simpleAlert("You must fill all the required fields!")
+        return
+    }
+    
+    showHUD()
+    
+    let currentUser = PFUser.current()
+    recipeObj[RECIPES_USER_POINTER] = currentUser
+    recipeObj[RECIPES_TITLE] = titleTxt.text
+    recipeObj[RECIPES_TITLE_LOWERCASE] = titleTxt.text!.lowercased()
+    
+    // Save keywords
+    let keywords = titleTxt.text!.lowercased().components(separatedBy: " ")
+    recipeObj[RECIPES_KEYWORDS] = keywords
+    
+    recipeObj[RECIPES_CATEGORY] = categoryTxt.selectedItem
+    recipeObj[RECIPES_ABOUT] = storyTxt.text
+    recipeObj[RECIPES_DIFFICULTY] = difficultyStr
+    recipeObj[RECIPES_COOKING] = cookingTxt.text
+    recipeObj[RECIPES_BAKING] = bakingTxt.text
+    recipeObj[RECIPES_RESTING] = restingTxt.text
+    if youtubeTxt.text != "" { recipeObj[RECIPES_YOUTUBE] = youtubeTxt.text
+    } else { recipeObj[RECIPES_YOUTUBE] = "" }
+    if videoTitleTxt.text != "" { recipeObj[RECIPES_VIDEO_TITLE] = videoTitleTxt.text
+    } else { recipeObj[RECIPES_VIDEO_TITLE] = "" }
+    recipeObj[RECIPES_INGREDIENTS] = ingredientsTxt.text
+    recipeObj[RECIPES_PREPARATION] = preparationTxt.text
+    recipeObj[RECIPES_IS_REPORTED] = false
+    recipeObj[RECIPES_COMMENTS] = 0
+    recipeObj[RECIPES_LIKES] = 0
+
+    // Save Image (if exists)
+    if coverImage.image != nil {
+        let imageData = UIImageJPEGRepresentation(coverImage.image!, 0.8)
+        let imageFile = PFFile(name:"cover.jpg", data:imageData!)
+        recipeObj[RECIPES_COVER] = imageFile
+    }
+    
+
+    // Saving block
+    recipeObj.saveInBackground { (success, error) -> Void in
+        if error == nil {
+            
+            self.simpleAlert("You've successfully submitted your recipe!") {
+                self.navigationController?.popViewController(animated: true)
+            }
+            self.hideHUD()
+    
+        } else {
+            self.simpleAlert("\(error!.localizedDescription)")
+            self.hideHUD()
+    }}
 }
     
   
  
 // MARK: - DELETE RECIPE BUTTON
 @IBAction func btnDelete(_ sender: Any) {
+    let alert = UIAlertController.init(title: "Delete", message: "Are you sure want to delete this recipe?", preferredStyle: .alert)
+    alert.addAction(UIAlertAction.init(title: "Yes", style: .default, handler: { (btn) in
+        self.deleteRecipe()
+    }))
+    alert.addAction(UIAlertAction.init(title: "No", style: .cancel, handler: nil))
+    present(alert, animated: true, completion: nil)
+}
+    
+func deleteRecipe () {
     likesArray.removeAll()
     
     // DELETE ALL LIKES
@@ -360,9 +314,23 @@ func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMe
     
 // MARK: - BACK BUTTON
 @IBAction func btnBack(_ sender: Any) {
-    _ = navigationController?.popViewController(animated: true)
+    let alert = UIAlertController.init(title: "Warning", message: "Are you sure want to back?\n.All form data will erase.", preferredStyle: .alert)
+    alert.addAction(UIAlertAction.init(title: "Yes", style: .default, handler: { (btn) in
+        self.navigationController?.popViewController(animated: true)
+    }))
+    alert.addAction(UIAlertAction.init(title: "No", style: .cancel, handler: nil))
+    present(alert, animated: true, completion: nil)
 }
-    
+
+//MARK: - SCROLL VIEW
+func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    if scrollView == mainScrollView {
+        let pageWidth = scrollView.frame.size.width
+        let fractionalPage = scrollView.contentOffset.x / pageWidth
+        let page = lround(Double(fractionalPage))
+        pageControl.currentPage = page
+    }
+}
 
 // MARK: - TEXT FIELD DELEGATE
 func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -375,14 +343,7 @@ func textFieldShouldReturn(_ textField: UITextField) -> Bool {
     
 return true
 }
-
-
-    
-    
-    
-    
-    
-    
+  
     
 // MARK: - ADMOB BANNER METHODS
 func initAdMobBanner() {
@@ -402,7 +363,7 @@ func initAdMobBanner() {
         UIView.beginAnimations("hideBanner", context: nil)
         
         banner.frame = CGRect(x: 0, y: self.view.frame.size.height, width: banner.frame.size.width, height: banner.frame.size.height)
-        conBottomBtnSubmit.constant = 0
+        conBottomPageControl.constant = 0
         self.view.layoutIfNeeded()
         UIView.commitAnimations()
         banner.isHidden = true
@@ -416,7 +377,7 @@ func initAdMobBanner() {
         banner.frame = CGRect(x: view.frame.size.width/2 - banner.frame.size.width/2,
                               y: view.frame.size.height - banner.frame.size.height - h,
                               width: banner.frame.size.width, height: banner.frame.size.height);
-        conBottomBtnSubmit.constant = 50
+        conBottomPageControl.constant = 50
         self.view.layoutIfNeeded()
         UIView.commitAnimations()
         banner.isHidden = false

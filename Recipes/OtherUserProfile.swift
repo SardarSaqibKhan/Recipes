@@ -174,18 +174,6 @@ func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath:
 func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
     return cellSize
 }
-   
-func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        
-    let visibleCells = userRecipesCollView.visibleCells as! [RecipesCell]
-    for cell in visibleCells
-    {
-        var frame = cell.coverImage.frame
-        let yOffset: CGFloat = ((userRecipesCollView.contentOffset.y - cell.frame.origin.y) / frame.size.height) * 20.0
-        frame.origin.y = yOffset
-        cell.coverImage.frame = frame
-    }
-}
     
 // MARK: - TAP A CELL -> SHOW RECIPE
 func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -197,7 +185,18 @@ func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPat
     navigationController?.pushViewController(rdVC, animated: true)
 }
 
-    
+// MARK: - Scroll View
+func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
+    let visibleCells = userRecipesCollView.visibleCells as! [RecipesCell]
+    for cell in visibleCells
+    {
+        var frame = cell.coverImage.frame
+        let yOffset: CGFloat = ((userRecipesCollView.contentOffset.y - cell.frame.origin.y) / frame.size.height) * 20.0
+        frame.origin.y = yOffset
+        cell.coverImage.frame = frame
+    }
+}
     
    
 // MARK: - LIKE BUTTON

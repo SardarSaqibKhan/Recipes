@@ -1,0 +1,24 @@
+PODS:
+  - IQDropDownTextField (2.0)
+  - IQKeyboardManagerSwift (6.5.4)
+  - lottie-ios (3.1.6)
+
+DEPENDENCIES:
+  - IQDropDownTextField
+  - IQKeyboardManagerSwift
+  - lottie-ios
+
+SPEC REPOS:
+  trunk:
+    - IQDropDownTextField
+    - IQKeyboardManagerSwift
+    - lottie-ios
+
+SPEC CHECKSUMS:
+  IQDropDownTextField: 79293d19042b6f2ee6f02decf4a0e68e59e4f327
+  IQKeyboardManagerSwift: 2dde0fc70110e8eac7ccce2a46fdbec6a850b414
+  lottie-ios: 85ce835dd8c53e02509f20729fc7d6a4e6645a0a
+
+PODFILE CHECKSUM: 8ca096935b6684f7608177e24791279d91dfbdd2
+
+COCOAPODS: 1.8.4
