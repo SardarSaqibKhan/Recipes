@@ -30,6 +30,9 @@ UITableViewDataSource
 override func viewDidAppear(_ animated: Bool) {
 
     UIApplication.shared.applicationIconBadgeNumber = 0
+    
+    let textAttributes = [NSAttributedStringKey.foregroundColor:UIColor.black]
+    navigationController?.navigationBar.titleTextAttributes = textAttributes
 
     // Reload data for shopping list
     shoppingTableView.reloadData()

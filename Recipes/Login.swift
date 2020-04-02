@@ -30,13 +30,13 @@ override func viewWillAppear(_ animated: Bool) {
 override func viewDidLoad() {
         super.viewDidLoad()
     
-    mainView.layer.cornerRadius = 21
-    mainView.layer.shadowOpacity = 1
-    mainView.layer.shadowRadius = 5.0
-    mainView.layer.shadowOffset = CGSize(width: 0.0, height: 4.0)
-    mainView.layer.masksToBounds = false
-    mainView.layer.shadowPath = UIBezierPath(roundedRect: mainView.bounds, cornerRadius: mainView.layer.cornerRadius).cgPath
-    mainView.layer.shadowColor = UIColor(red: 128.0/255, green: 128.0/255, blue: 128.0/255, alpha: 1.0).cgColor
+//    mainView.layer.cornerRadius = 21
+  //  mainView.layer.shadowOpacity = 1
+   // mainView.layer.shadowRadius = 5.0
+   // mainView.layer.shadowOffset = CGSize(width: 0.0, height: 4.0)
+   // mainView.layer.masksToBounds = false
+   // mainView.layer.shadowPath = UIBezierPath(roundedRect: mainView.bounds, cornerRadius: mainView.layer.cornerRadius).cgPath
+   // mainView.layer.shadowColor = UIColor(red: 128.0/255, green: 128.0/255, blue: 128.0/255, alpha: 1.0).cgColor
     
     signUpBtn.layer.cornerRadius = 21
     signUpBtn.layer.shadowOpacity = 1

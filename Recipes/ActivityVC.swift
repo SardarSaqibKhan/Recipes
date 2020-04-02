@@ -41,8 +41,8 @@ override func viewDidLoad() {
     // Initialize a BACK BarButton Item
     let backButt = UIButton(type: .custom)
     backButt.adjustsImageWhenHighlighted = false
-    backButt.frame = CGRect(x: 0, y: 0, width: 44, height: 44)
-    backButt.setBackgroundImage(UIImage(named: "backButt"), for: .normal)
+    backButt.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+    backButt.setBackgroundImage(UIImage(named: "icon_back-white"), for: .normal)
     backButt.addTarget(self, action: #selector(backButton(_:)), for: .touchUpInside)
     navigationItem.leftBarButtonItem = UIBarButtonItem(customView: backButt)
     
