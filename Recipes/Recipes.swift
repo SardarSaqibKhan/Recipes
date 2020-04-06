@@ -222,7 +222,7 @@ func collectionView(_ collectionView: UICollectionView, layout collectionViewLay
   
 // MARK: - Animation
     func playAnimation(){
-        DispatchQueue.main.asyncAfter(deadline: .now() + 5.5, execute: {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3.9, execute: {
             UIView.animate(withDuration: 0.5, animations: {
                 self.animationView.alpha = 0.0
             }) { (sucess) in

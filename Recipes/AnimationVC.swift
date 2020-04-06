@@ -16,7 +16,7 @@ class AnimationVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.playAnimation()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 6.0, execute: {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3.9, execute: {
             self.dismiss(animated: false, completion: nil)
         })
     }
