@@ -46,7 +46,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //================================= Navigation bar =================================//
         UINavigationBar.appearance().tintColor = UIColor.white
         
-        let titleFont = UIFont(name: "American Typewriter", size: 19.0)!
+        let titleFont = UIFont(name: "Helvetica", size: 19.0)!
         
         UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.font : titleFont,
                                                             NSAttributedString.Key.foregroundColor : UIColor.white]

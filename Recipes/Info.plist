@@ -74,9 +74,9 @@
 	<key>NSCalendarsUsageDescription</key>
 	<string>This app need to access Calendars to share recipes</string>
 	<key>NSCameraUsageDescription</key>
-	<string>This app need to access your Photo Library to upload images</string>
+	<string>To take live pictures while you cook to upload to your recipes</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>This app need to access your Photo Library to upload images</string>
+	<string>To upload photos for your recipe and user profiles</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Montserrat-Regular.otf</string>
