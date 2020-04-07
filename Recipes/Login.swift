@@ -38,13 +38,13 @@ override func viewDidLoad() {
    // mainView.layer.shadowPath = UIBezierPath(roundedRect: mainView.bounds, cornerRadius: mainView.layer.cornerRadius).cgPath
    // mainView.layer.shadowColor = UIColor(red: 128.0/255, green: 128.0/255, blue: 128.0/255, alpha: 1.0).cgColor
     
-    signUpBtn.layer.cornerRadius = 21
-    signUpBtn.layer.shadowOpacity = 1
-    signUpBtn.layer.shadowRadius = 5.0
-    signUpBtn.layer.shadowOffset = CGSize(width: 0.0, height: 4.0)
-    signUpBtn.layer.masksToBounds = false
-    signUpBtn.layer.shadowPath = UIBezierPath(roundedRect:  signUpBtn.bounds, cornerRadius: signUpBtn.layer.cornerRadius).cgPath
-    signUpBtn.layer.shadowColor = UIColor(red: 128.0/255, green: 128.0/255, blue: 128.0/255, alpha: 1.0).cgColor
+   // signUpBtn.layer.cornerRadius = 21
+   // signUpBtn.layer.shadowOpacity = 1
+   // signUpBtn.layer.shadowRadius = 5.0
+   // signUpBtn.layer.shadowOffset = CGSize(width: 0.0, height: 4.0)
+   // signUpBtn.layer.masksToBounds = false
+   // signUpBtn.layer.shadowPath = UIBezierPath(roundedRect:  signUpBtn.bounds, cornerRadius: signUpBtn.layer.cornerRadius).cgPath
+   // signUpBtn.layer.shadowColor = UIColor(red: 128.0/255, green: 128.0/255, blue: 128.0/255, alpha: 1.0).cgColor
     
     forgotPasswrdBtn.layer.cornerRadius = 21
     forgotPasswrdBtn.layer.shadowOpacity = 1

@@ -146,9 +146,8 @@ func showRecipeDetails() {
     let library = UIAlertAction(title: "Pick from Library", style: .default, handler: { (action) -> Void in
         if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
             let imagePicker = UIImagePickerController()
-            imagePicker.delegate = self
-            imagePicker.sourceType = .photoLibrary;
-            imagePicker.allowsEditing = false
+            imagePicker.navigationBar.isTranslucent = false
+            imagePicker.navigationBar.barTintColor = .black // Background color
             self.present(imagePicker, animated: true, completion: nil)
         }
     })

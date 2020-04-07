@@ -239,6 +239,7 @@ return true
     
 // MARK: - SEND COMMENT BUTTON
 @objc func sendCommentButt(_ sender:UIButton) {
+    if PFUser.current() != nil {
     dismissKeyboard()
     showHUD()
     
@@ -303,7 +304,24 @@ return true
             self.simpleAlert("\(error!.localizedDescription)")
             self.hideHUD()
     }}
-
+    }
+    else{
+        
+        let alert = UIAlertController(title: APP_NAME,
+            message: "You must login/sign up to comment on a recipe!",
+            preferredStyle: UIAlertControllerStyle.alert)
+        
+        let ok = UIAlertAction(title: "Login", style: UIAlertActionStyle.default, handler: { (action) -> Void in
+            let loginVC = self.storyboard?.instantiateViewController(withIdentifier: "Login") as! Login
+            self.present(loginVC, animated: true, completion: nil)
+        })
+        let cancel = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: { (action) -> Void in })
+        alert.addAction(ok)
+        alert.addAction(cancel)
+        present(alert, animated: true, completion: nil)
+        
+        
+    }
 }
     
     

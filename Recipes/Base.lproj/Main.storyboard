@@ -2221,6 +2221,16 @@
                                             <action selector="loginButt:" destination="jzn-ep-2M3" eventType="touchUpInside" id="uno-GG-YQF"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6ID-a8-QKp">
+                                        <rect key="frame" x="85" y="378" width="242" height="44"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" red="0.0" green="0.14748997211989828" blue="0.30577807741116747" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="16"/>
+                                        <state key="normal" title="Sign Up"/>
+                                        <connections>
+                                            <action selector="signupButt:" destination="jzn-ep-2M3" eventType="touchUpInside" id="t5w-oj-Xxi"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <gestureRecognizers/>
@@ -2229,8 +2239,8 @@
                                 </connections>
                             </scrollView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vl4-Rb-ZAV">
-                                <rect key="frame" x="241" y="817" width="142" height="45"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                                <rect key="frame" x="136" y="817" width="142" height="45"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <color key="backgroundColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="13"/>
                                 <state key="normal" title="FORGOT PASSWORD">
@@ -2238,18 +2248,6 @@
                                 </state>
                                 <connections>
                                     <action selector="forgotPasswButt:" destination="jzn-ep-2M3" eventType="touchUpInside" id="025-Rv-1Se"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tCL-MB-Xsx">
-                                <rect key="frame" x="33" y="817" width="96" height="45"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <color key="backgroundColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="13"/>
-                                <state key="normal" title="      SIGN UP">
-                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="signupButt:" destination="jzn-ep-2M3" eventType="touchUpInside" id="UVK-Rh-kwb"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -2261,7 +2259,6 @@
                         <outlet property="containerScrollView" destination="AcH-r6-MAp" id="OOd-qy-YHJ"/>
                         <outlet property="forgotPasswrdBtn" destination="vl4-Rb-ZAV" id="qsA-Bw-b2n"/>
                         <outlet property="passwordTxt" destination="eWy-zS-VPB" id="D8d-tq-fDy"/>
-                        <outlet property="signUpBtn" destination="tCL-MB-Xsx" id="seS-37-K6M"/>
                         <outlet property="usernameTxt" destination="OKP-0T-CZS" id="OMM-wV-aVo"/>
                     </connections>
                 </viewController>
