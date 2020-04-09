@@ -29,8 +29,8 @@ GADBannerViewDelegate
     @IBOutlet weak var storyTxt: UITextView!
     @IBOutlet var difficultyButtons: [UIButton]!
     @IBOutlet weak var cookingTxt: UITextField!
-    @IBOutlet weak var bakingTxt: UITextField!
-    @IBOutlet weak var restingTxt: UITextField!
+    @IBOutlet weak var prepTxt: UITextField!
+    @IBOutlet weak var servingsTxt: UITextField!
     @IBOutlet weak var youtubeTxt: UITextField!
     @IBOutlet weak var videoTitleTxt: UITextField!
     @IBOutlet weak var ingredientsTxt: UITextView!
@@ -83,8 +83,8 @@ func showRecipeDetails() {
     if recipeObj[RECIPES_VIDEO_TITLE] != nil { videoTitleTxt.text = "\(recipeObj[RECIPES_VIDEO_TITLE]!)"
     } else { videoTitleTxt.text = ""  }
     cookingTxt.text = "\(recipeObj[RECIPES_COOKING]!)"
-    bakingTxt.text = "\(recipeObj[RECIPES_BAKING]!)"
-    restingTxt.text = "\(recipeObj[RECIPES_RESTING]!)"
+    prepTxt.text = "\(recipeObj[RECIPES_BAKING]!)"
+    servingsTxt.text = "\(recipeObj[RECIPES_RESTING]!)"
     ingredientsTxt.text = "\(recipeObj[RECIPES_INGREDIENTS]!)"
     preparationTxt.text = "\(recipeObj[RECIPES_PREPARATION]!)"
     
@@ -146,7 +146,9 @@ func showRecipeDetails() {
     let library = UIAlertAction(title: "Pick from Library", style: .default, handler: { (action) -> Void in
         if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
             let imagePicker = UIImagePickerController()
-            imagePicker.navigationBar.isTranslucent = false
+            imagePicker.delegate = self
+            imagePicker.sourceType = .photoLibrary;
+            imagePicker.allowsEditing = false
             imagePicker.navigationBar.barTintColor = .black // Background color
             self.present(imagePicker, animated: true, completion: nil)
         }
@@ -181,8 +183,8 @@ func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMe
     }
     
     @IBAction func btn2Next(_ sender: Any) {
-        if difficultyStr == "" || cookingTxt.text == "" || bakingTxt.text == "" ||
-            restingTxt.text == "" || ingredientsTxt.text == "" || preparationTxt.text == "" {
+        if difficultyStr == "" || cookingTxt.text == "" || prepTxt.text == "" ||
+            servingsTxt.text == "" || ingredientsTxt.text == "" || preparationTxt.text == "" {
             self.simpleAlert("You must fill all the required fields!")
             return
         }
@@ -199,8 +201,8 @@ func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMe
         }
         return
     }
-    if difficultyStr == "" || cookingTxt.text == "" || bakingTxt.text == "" ||
-        restingTxt.text == "" || ingredientsTxt.text == "" || preparationTxt.text == "" {
+    if difficultyStr == "" || cookingTxt.text == "" || prepTxt.text == "" ||
+        servingsTxt.text == "" || ingredientsTxt.text == "" || preparationTxt.text == "" {
         
         self.simpleAlert("You must fill all the required fields!") {
             self.mainScrollView.setContentOffset(CGPoint.init(x: self.mainScrollView.frame.size.width, y: 0), animated: true)
@@ -228,8 +230,8 @@ func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMe
     recipeObj[RECIPES_ABOUT] = storyTxt.text
     recipeObj[RECIPES_DIFFICULTY] = difficultyStr
     recipeObj[RECIPES_COOKING] = cookingTxt.text
-    recipeObj[RECIPES_BAKING] = bakingTxt.text
-    recipeObj[RECIPES_RESTING] = restingTxt.text
+    recipeObj[RECIPES_BAKING] = prepTxt.text
+    recipeObj[RECIPES_RESTING] = servingsTxt.text
     if youtubeTxt.text != "" { recipeObj[RECIPES_YOUTUBE] = youtubeTxt.text
     } else { recipeObj[RECIPES_YOUTUBE] = "" }
     if videoTitleTxt.text != "" { recipeObj[RECIPES_VIDEO_TITLE] = videoTitleTxt.text
@@ -334,9 +336,9 @@ func scrollViewDidScroll(_ scrollView: UIScrollView) {
 // MARK: - TEXT FIELD DELEGATE
 func textFieldShouldReturn(_ textField: UITextField) -> Bool {
     if textField == titleTxt { titleTxt.resignFirstResponder() }
-    if textField == cookingTxt { bakingTxt.becomeFirstResponder() }
-    if textField == bakingTxt { restingTxt.becomeFirstResponder() }
-    if textField == restingTxt { youtubeTxt.becomeFirstResponder() }
+    if textField == cookingTxt { prepTxt.becomeFirstResponder() }
+    if textField == prepTxt { servingsTxt.becomeFirstResponder() }
+    if textField == servingsTxt { youtubeTxt.becomeFirstResponder() }
     if textField == youtubeTxt { videoTitleTxt.becomeFirstResponder() }
     if textField == videoTitleTxt { videoTitleTxt.resignFirstResponder() }
     

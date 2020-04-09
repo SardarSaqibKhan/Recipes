@@ -29,9 +29,9 @@ GADBannerViewDelegate, UIScrollViewDelegate
     @IBOutlet weak var aboutReceipeLabel: UILabel!
     @IBOutlet weak var difficultyLabel: UILabel!
     
+    @IBOutlet weak var prepLabel: UILabel!
     @IBOutlet weak var cookingLabel: UILabel!
-    @IBOutlet weak var bakingLabel: UILabel!
-    @IBOutlet weak var restingLabel: UILabel!
+    @IBOutlet weak var servingLabel: UILabel!
     
     @IBOutlet weak var videoWebView: UIWebView!
     @IBOutlet weak var videoTitleLabel: UILabel!
@@ -130,9 +130,9 @@ func showRecipeDetails() {
             self.aboutReceipeLabel.text = "\(self.recipeObj[RECIPES_ABOUT]!)"
             self.difficultyLabel.text = "Difficulty: \(self.recipeObj[RECIPES_DIFFICULTY]!)"
             
+            self.prepLabel.text = "Prep\n\(self.recipeObj[RECIPES_BAKING]!)"
             self.cookingLabel.text = "Cooking\n\(self.recipeObj[RECIPES_COOKING]!)"
-            self.bakingLabel.text = "Baking\n\(self.recipeObj[RECIPES_BAKING]!)"
-            self.restingLabel.text = "Resting\n\(self.recipeObj[RECIPES_RESTING]!)"
+            self.servingLabel.text = "Servings\n\(self.recipeObj[RECIPES_RESTING]!)"
 
             var isVideo = false
             // Get video

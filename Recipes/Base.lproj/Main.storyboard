@@ -894,18 +894,18 @@
                     <connections>
                         <outlet property="aboutReceipeLabel" destination="Lgw-NN-rFf" id="FXq-sP-F6L"/>
                         <outlet property="avatarImage" destination="4Mq-rK-lu6" id="ip1-Pi-Lb0"/>
-                        <outlet property="bakingLabel" destination="LtX-XJ-Oix" id="kET-rT-mMA"/>
                         <outlet property="categoryLabel" destination="WJY-at-pJQ" id="IxH-po-aM0"/>
                         <outlet property="commentsLabel" destination="tDr-RK-Cwm" id="4Dj-ya-QFp"/>
                         <outlet property="conBottomBtnAdd" destination="z2z-fF-15b" id="Ysa-C7-zG4"/>
                         <outlet property="conHeightWebView" destination="dFS-E5-pEh" id="34R-hs-zXS"/>
-                        <outlet property="cookingLabel" destination="aXC-hS-hPh" id="hS6-jK-Wxs"/>
+                        <outlet property="cookingLabel" destination="LtX-XJ-Oix" id="Zu8-ec-7pT"/>
                         <outlet property="coverImage" destination="DjI-l7-Vcj" id="b0d-Tb-1pt"/>
                         <outlet property="difficultyLabel" destination="aKv-em-uYE" id="fVD-n8-aT8"/>
                         <outlet property="ingredientsTxt" destination="CGZ-zk-5SY" id="E1T-27-tgs"/>
                         <outlet property="likesLabel" destination="WBe-GI-0i2" id="FoX-nN-v8k"/>
+                        <outlet property="prepLabel" destination="aXC-hS-hPh" id="Vzx-Ro-GKh"/>
                         <outlet property="preparationTxt" destination="EmJ-TW-QgY" id="qnh-1k-nia"/>
-                        <outlet property="restingLabel" destination="jYJ-rI-q9V" id="7hb-tf-QGr"/>
+                        <outlet property="servingLabel" destination="jYJ-rI-q9V" id="O38-n6-noa"/>
                         <outlet property="titleLabel" destination="nuo-Xt-dSj" id="zvX-sO-fNX"/>
                         <outlet property="userFullNameLabel" destination="tmi-xe-79l" id="izL-Qn-6qz"/>
                         <outlet property="videoTitleLabel" destination="qOS-qG-tK0" id="8br-ZH-n1d"/>
@@ -972,7 +972,7 @@
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </view>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="05T-fY-wvX">
-                                                    <rect key="frame" x="11" y="16" width="419" height="27"/>
+                                                    <rect key="frame" x="10" y="16" width="420" height="27"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="15"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1589,7 +1589,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SpN-mg-Qaf">
-                                                    <rect key="frame" x="1" y="11" width="376" height="65"/>
+                                                    <rect key="frame" x="0.0" y="11" width="377" height="65"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </view>
@@ -2300,7 +2300,7 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" name="Champagne&amp;Limousines" family="Champagne &amp; Limousines" pointSize="16"/>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <state key="normal" backgroundImage="multiply" catalog="system">
+                                        <state key="normal" backgroundImage="icon_back-white">
                                             <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <connections>
@@ -2701,20 +2701,20 @@
                                                                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
-                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cooking" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8ln-Us-ZFG">
-                                                                        <rect key="frame" x="8" y="42" width="62" height="18"/>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Prep" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8ln-Us-ZFG">
+                                                                        <rect key="frame" x="8" y="42" width="35.333333333333336" height="18"/>
                                                                         <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="15"/>
                                                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
-                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Baking" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2s2-zP-Btt">
-                                                                        <rect key="frame" x="8.0000000000000036" y="84" width="52.333333333333343" height="18"/>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cooking" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2s2-zP-Btt">
+                                                                        <rect key="frame" x="8" y="84" width="62" height="18"/>
                                                                         <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="15"/>
                                                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
-                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Resting" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u0H-ka-cWi">
-                                                                        <rect key="frame" x="7.9999999999999964" y="126" width="56.666666666666657" height="18"/>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Servings" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u0H-ka-cWi">
+                                                                        <rect key="frame" x="8.0000000000000036" y="126" width="63.333333333333343" height="18"/>
                                                                         <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="15"/>
                                                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <nil key="highlightedColor"/>
@@ -2743,14 +2743,14 @@
                                                                             <outlet property="delegate" destination="eKL-7Q-Ouy" id="kLe-99-Cv5"/>
                                                                         </connections>
                                                                     </textField>
-                                                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="ex. 10 min" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9Um-UN-gWh">
+                                                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="ex. 5" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9Um-UN-gWh">
                                                                         <rect key="frame" x="244" y="118" width="130" height="34"/>
                                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" constant="130" id="zLL-AV-6CZ"/>
                                                                         </constraints>
                                                                         <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="14"/>
-                                                                        <textInputTraits key="textInputTraits" returnKeyType="next"/>
+                                                                        <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation" returnKeyType="next"/>
                                                                         <connections>
                                                                             <outlet property="delegate" destination="eKL-7Q-Ouy" id="8yd-we-gK2"/>
                                                                         </connections>
@@ -3145,16 +3145,16 @@
                     </navigationItem>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <connections>
-                        <outlet property="bakingTxt" destination="tlf-7u-jaF" id="QPJ-j5-mZq"/>
                         <outlet property="categoryTxt" destination="Myi-DF-4So" id="yjJ-xy-0qK"/>
                         <outlet property="conBottomPageControl" destination="QYg-lU-8rY" id="14X-5H-A5c"/>
-                        <outlet property="cookingTxt" destination="gpl-Xd-jmk" id="fRV-HP-96r"/>
+                        <outlet property="cookingTxt" destination="tlf-7u-jaF" id="ubD-Wg-DSZ"/>
                         <outlet property="coverImage" destination="0yN-gQ-xiR" id="mfO-4f-DIr"/>
                         <outlet property="ingredientsTxt" destination="EHb-Qv-FRm" id="ooj-cO-JH0"/>
                         <outlet property="mainScrollView" destination="g45-8e-zQu" id="UAP-l1-r5U"/>
                         <outlet property="pageControl" destination="Lpk-a8-nam" id="gWg-Yl-JfO"/>
+                        <outlet property="prepTxt" destination="gpl-Xd-jmk" id="riF-Ac-Krk"/>
                         <outlet property="preparationTxt" destination="mch-If-eYZ" id="lKT-96-8wX"/>
-                        <outlet property="restingTxt" destination="9Um-UN-gWh" id="MRL-kG-zCG"/>
+                        <outlet property="servingsTxt" destination="9Um-UN-gWh" id="awm-8D-oXq"/>
                         <outlet property="storyTxt" destination="keL-c5-xUJ" id="frO-hS-ofm"/>
                         <outlet property="submitOutlet" destination="jVj-SY-GH3" id="eQC-lh-Tv8"/>
                         <outlet property="titleTxt" destination="bda-h1-Err" id="a2H-Nv-CKq"/>
@@ -3234,16 +3234,16 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OPU-GY-kbD">
-                                                    <rect key="frame" x="8" y="9" width="417" height="69"/>
+                                                    <rect key="frame" x="7" y="9" width="418" height="69"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </view>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SB7-Rp-MWq">
-                                                    <rect key="frame" x="27" y="8" width="50" height="48"/>
+                                                    <rect key="frame" x="27" y="7" width="50" height="49"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                 </imageView>
                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" text="loading..." textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="xFl-vZ-zzD">
-                                                    <rect key="frame" x="70" y="42" width="418" height="31"/>
+                                                    <rect key="frame" x="70" y="42" width="417" height="31"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <fontDescription key="fontDescription" name="Titillium-Light" family="Titillium" pointSize="12"/>
@@ -3257,7 +3257,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="•••" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="VaD-kC-Era">
-                                                    <rect key="frame" x="302" y="17" width="82" height="21"/>
+                                                    <rect key="frame" x="302" y="17" width="81" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" name="Titillium-Thin" family="Titillium" pointSize="11"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -3330,7 +3330,6 @@
         <image name="icon_shopping" width="25" height="25"/>
         <image name="icon_whisk" width="22" height="22"/>
         <image name="logo" width="100" height="100"/>
-        <image name="multiply" catalog="system" width="64" height="54"/>
         <image name="plate" width="267" height="360"/>
         <image name="selectedImage" width="60" height="60"/>
     </resources>
