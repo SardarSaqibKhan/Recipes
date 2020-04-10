@@ -117,7 +117,7 @@ func showUserDetails() {
     } else { fullNameLabel.text = "\(aUser[USER_FULLNAME]!)" }
     
     if aUser[USER_ABOUTME] != nil { aboutMeTxt.text = "\(aUser[USER_ABOUTME]!)"
-    } else { aboutMeTxt.text = "N/D" }
+    } else { aboutMeTxt.text = "" }
     
 }
     

@@ -78,6 +78,7 @@ func dismissKeyboard() {
         userForSignUp.signUpInBackground { (succeeded, error) -> Void in
             if error == nil {
                 self.dismiss(animated: false, completion: nil)
+                self.view.window!.rootViewController?.presentedViewController?.dismiss(animated: true, completion: nil)
                 self.hideHUD()
         
             // ERROR ON SIGN UP

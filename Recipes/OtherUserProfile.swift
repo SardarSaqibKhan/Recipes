@@ -84,7 +84,7 @@ func showUserDetails() {
     if otherUserObj[USER_ABOUTME] != nil {
         aboutUserLabel.text =  "\(otherUserObj[USER_ABOUTME]!)"//"I would like to cook for family!"//
     } else {
-        aboutUserLabel.text = "N/D"
+        aboutUserLabel.text = ""
     }
     
     userRecipesLabel.text = "Recipes"
@@ -352,7 +352,7 @@ func scrollViewDidScroll(_ scrollView: UIScrollView) {
                         for i in 0..<objects!.count {
                             var rObj = PFObject(className: RECIPES_CLASS_NAME)
                             rObj = objects![i]
-                            rObj[RECIPES_IS_REPORTED] = true
+                            rObj[RECIPES_IS_REQ_REPORTED] = true
                             rObj.saveInBackground()
                         }
                 }})

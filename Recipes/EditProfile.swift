@@ -117,6 +117,8 @@ func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMe
     showHUD()
     
     userObj[USER_FULLNAME] = fullnameTxt.text
+    userObj[USER_EMAIL] = emailTxt.text
+    userObj[USER_USERNAME] = emailTxt.text
     
     if occupationTxt.text != "" { userObj[USER_JOB] = occupationTxt.text
     } else { userObj[USER_JOB] = "" }

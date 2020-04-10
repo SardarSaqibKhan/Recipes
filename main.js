@@ -37,7 +37,7 @@ Parse.Cloud.define("reportUser", function(request, response) {
     var User = Parse.Object.extend('_User'),
     user = new User({ objectId: userId });
 
-    user.set('isReported', true);
+    user.set('reportRqst', true);
     user.set('reportMessage', reportMessage);
 
     Parse.Cloud.useMasterKey();

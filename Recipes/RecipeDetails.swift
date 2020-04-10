@@ -351,7 +351,7 @@ func showRecipeDetails() {
         let textField = alert.textFields!.first!
         let txtStr = textField.text!
         
-        self.recipeObj[RECIPES_IS_REPORTED] = true
+        self.recipeObj[RECIPES_IS_REQ_REPORTED] = true
         self.recipeObj[RECIPES_REPORT_MESSAGE] = txtStr
         self.recipeObj.saveInBackground(block: { (succ, error) in
             if error == nil {
