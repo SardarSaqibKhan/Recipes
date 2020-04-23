@@ -111,7 +111,7 @@ func showRecipeDetails() {
             
             // Get User's details
             if userPointer[USER_JOB] != nil {
-                self.userFullNameLabel.text = "\(userPointer[USER_FULLNAME]!) (\(userPointer[USER_JOB]!))"
+                self.userFullNameLabel.text = "\(userPointer[USER_FULLNAME]!)"
             }
             else {
                 self.userFullNameLabel.text = "\(userPointer[USER_FULLNAME]!)"

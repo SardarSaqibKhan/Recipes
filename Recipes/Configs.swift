@@ -12,18 +12,15 @@ import UIKit
 import Parse
 
 
-
-// IMPORTANT: Replace the red string below accordingly to the new name you'll give to this app
+//Name
 let APP_NAME = "Enebla"
 
-
-// PARSE KEYS -> Replace these red keys with your own ones from your Parse app on back4app.com
+//Parse Keys
 let PARSE_APP_KEY = "wWMulZnH1Xiy56R8JbwxJtn5akaLVxW4dg5UmTxz"
 let PARSE_CLIENT_KEY = "xTsSDZ5CO2HaD0MN1jZ2iRup10sYFHmz1CwBnIxO"
 
 
-
-// IMPORTANT: REPLACE THE RED STRING BELOW WITH THE UNIT ID YOU'VE GOT BY REGISTERING YOUR APP IN http://www.apps.admob.com
+//Google addmobs
 let ADMOB_BANNER_UNIT_ID = "ca-app-pub-3453913475502605/1028766550"
 
 
