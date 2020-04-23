@@ -30,17 +30,16 @@ let ADMOB_BANNER_UNIT_ID = "ca-app-pub-3453913475502605/1028766550"
 
 // FOOD CATEGORIES ARRAY (editable)
 let categoriesArray =  [
-    "Appetizer",
+
     "Breakfast",
-    "Healthy",
-    "Holidays & Events",
-    "Main Dish",
-    "Seafood",
     "Vegetarian",
-    "Salad",
-    "Desserts",
+    "Main Dish",
+    "Vegan",
+    "Bread & Injera",
+    "Fish",
+    "Appetizer & Sides",
+    "Spices & Sauces",
     "Beverage",
-    
     // You can add categories here...
     // IMPORTANT: Also remember to add the proper images into the FOOD CATEGORIES folder in Assets.xcassets, naming them exactly like the red strings above!
     
