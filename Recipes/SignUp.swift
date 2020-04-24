@@ -19,6 +19,7 @@ UITextFieldDelegate
     @IBOutlet var containerScrollView: UIScrollView!
     @IBOutlet var usernameTxt: UITextField!
     @IBOutlet var passwordTxt: UITextField!
+    @IBOutlet var confirmPassword: UITextField!
     @IBOutlet var fullnameTxt: UITextField!
     @IBOutlet var mainView: UIView!
     
@@ -50,6 +51,7 @@ override func viewDidLoad() {
 func dismissKeyboard() {
     usernameTxt.resignFirstResponder()
     passwordTxt.resignFirstResponder()
+    confirmPassword.resignFirstResponder()
     fullnameTxt.resignFirstResponder()
 }
     
@@ -70,11 +72,18 @@ func dismissKeyboard() {
     let imageFile = PFFile(name:"image.jpg", data:imageData!)
     userForSignUp[USER_AVATAR] = imageFile
     
-    if usernameTxt.text == "" || passwordTxt.text == "" || fullnameTxt.text == "" {
-        simpleAlert("You must fill all fields to sign up on \(APP_NAME)")
+    if usernameTxt.text == "" || passwordTxt.text == "" || fullnameTxt.text == "" || confirmPassword.text == "" {
+        simpleAlert("You must fill all fields to sign up")
         hideHUD()
         
-    } else {
+    }
+    else if passwordTxt.text !=  confirmPassword.text {
+        simpleAlert("Passwords do not match")
+        hideHUD()
+        
+    }
+    else
+    {
         userForSignUp.signUpInBackground { (succeeded, error) -> Void in
             if error == nil {
                 self.dismiss(animated: false, completion: nil)
