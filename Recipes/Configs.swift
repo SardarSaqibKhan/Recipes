@@ -88,6 +88,10 @@ extension UIViewController {
                 completion!()
             }
         }))
+        let backView = alert.view.subviews.last?.subviews.last
+        backView?.layer.cornerRadius = 10.0
+        backView?.backgroundColor = UIColor(red: 0.7255, green: 0.898, blue: 0.7451, alpha: 1)
+        
         present(alert, animated: true, completion: nil)
     }
 }

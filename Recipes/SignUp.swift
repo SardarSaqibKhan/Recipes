@@ -73,7 +73,7 @@ func dismissKeyboard() {
     userForSignUp[USER_AVATAR] = imageFile
     
     if usernameTxt.text == "" || passwordTxt.text == "" || fullnameTxt.text == "" || confirmPassword.text == "" {
-        simpleAlert("You must fill all fields to sign up")
+        simpleAlert("All fields are required to sign up")
         hideHUD()
         
     }

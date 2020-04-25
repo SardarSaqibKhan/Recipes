@@ -63,7 +63,7 @@ func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> U
     cell.mainView.layer.shadowOpacity = 1
     cell.mainView.layer.shadowRadius = 5.0
     cell.mainView.layer.shadowOffset = CGSize(width: 0.0, height: 4.0)
-    cell.mainView.layer.masksToBounds = false
+    cell.mainView.layer.masksToBounds = true
     cell.mainView.layer.shadowPath = UIBezierPath(roundedRect: cell.mainView.bounds, cornerRadius: cell.mainView.layer.cornerRadius).cgPath
     cell.mainView.layer.shadowColor = UIColor(red: 128.0/255, green: 128.0/255, blue: 128.0/255, alpha: 1.0).cgColor
     cell.itemLabel.text = "\(shoppingArray[indexPath.row])"
@@ -71,8 +71,22 @@ func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> U
     
 return cell
 }
+    
+    
 func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-    return 58
+    if indexPath.section == 0 {
+        return UITableViewAutomaticDimension
+    } else {
+        return 40
+    }
+}
+
+func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+    if indexPath.section == 0 {
+        return UITableViewAutomaticDimension
+    } else {
+        return 40
+    }
 }
     
     
