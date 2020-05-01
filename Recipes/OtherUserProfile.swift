@@ -75,7 +75,7 @@ func showUserDetails() {
     }}})
         
     if otherUserObj[USER_JOB] != nil {
-        fullnameLabel.text = "\(otherUserObj[USER_FULLNAME]!) (\(otherUserObj[USER_JOB]!))"//"Pramod Tapaniya (Cook)"//
+        fullnameLabel.text = "\(otherUserObj[USER_FULLNAME]!) (\(otherUserObj[USER_JOB]!))"
     }
     else {
         fullnameLabel.text = "\(otherUserObj[USER_FULLNAME]!)"
@@ -159,9 +159,7 @@ func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath:
                     cell.avatarOutlet.setImage(UIImage(data: imageData), for: .normal)
         }}})
         
-    
-//        cell.fullNameLabel.text = "\(otherUserObj[USER_FULLNAME]!)"// "Pramod Tapaniya"//
-    
+        
         cell.likeOutlet.tag = indexPath.row
 
     var frame = cell.coverImage.frame

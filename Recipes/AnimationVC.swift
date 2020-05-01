@@ -2,7 +2,6 @@
 //  AnimationVC.swift
 //  Enebla
 //
-//  Created by Pramod Tapaniya on 21/03/20.
 //  Copyright © 2020 FV iMAGINATION. All rights reserved.
 //
 

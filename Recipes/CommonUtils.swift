@@ -2,8 +2,7 @@
 //  CommonUtils.swift
 //  App
 //
-//  Created by Pramod on 01/04/19.
-//  Copyright © 2019 Pramod. All rights reserved.
+//  Copyright © 2019 ElTech. All rights reserved.
 //
 
 import Foundation
